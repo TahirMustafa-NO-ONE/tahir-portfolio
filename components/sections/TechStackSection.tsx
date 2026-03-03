@@ -16,7 +16,10 @@ import {
   SiFirebase,
   SiExpress,
   SiSolidity,
-  SiJavascript
+  SiJavascript,
+  SiPostgresql,
+  SiSupabase,
+  SiReactquery
 } from 'react-icons/si';
 
 const TechStackSection = () => {
@@ -31,6 +34,7 @@ const TechStackSection = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
   const techLogos = [
     { node: <SiReact />, title: "React", href: "https://react.dev", color: '#61DAFB' },
     { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org", color: '#000000' },
@@ -41,6 +45,9 @@ const TechStackSection = () => {
     { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com", color: '#06B6D4' },
     { node: <SiFlutter />, title: "Flutter", href: "https://flutter.dev", color: '#02569B' },
     { node: <SiPython />, title: "Python", href: "https://www.python.org", color: '#3776AB' },
+    { node: <SiPostgresql />, title: "PostgreSQL", href: "https://www.postgresql.org", color: '#4169E1' },
+    { node: <SiSupabase />, title: "Supabase", href: "https://supabase.com", color: '#3ECF8E' },
+    { node: <SiReactquery />, title: "TanStack Query", href: "https://tanstack.com/query", color: '#FF4154' },
     { node: <SiMongodb />, title: "MongoDB", href: "https://www.mongodb.com", color: '#47A248' },
     { node: <SiSolidity />, title: "Solidity", href: "https://soliditylang.org", color: '#363636' },
     { node: <SiFirebase />, title: "Firebase", href: "https://firebase.google.com", color: '#FFCA28' },
