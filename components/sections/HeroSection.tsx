@@ -5,6 +5,7 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TypewriterText from "@/components/ui/TypewriterText";
 import { useState } from "react";
+import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -255,15 +256,16 @@ const HeroSection = () => {
                   )}
                   
                   {/* Image */}
-                  <img
+                  <Image
                     src="/profile-avatar2.png"
                     alt="Tahir Mustafa"
-                    className="w-full h-full object-cover relative z-0"
+                    fill
+                    className="object-cover relative z-0"
                     onLoad={() => {
-                      // Simulate loading delay for testing (remove in production)
-                      setTimeout(() => setIsImageLoaded(true), 1000);
+                      setIsImageLoaded(true);
                     }}
                     style={{ opacity: isImageLoaded ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
+                    priority
                   />
                 </motion.div>
               </div>
@@ -274,10 +276,11 @@ const HeroSection = () => {
               <DialogContent className="max-w-2xl">
                 <DialogTitle className="sr-only">Profile Picture</DialogTitle>
                 <div className="relative w-full aspect-square">
-                  <img
+                  <Image
                     src="/profile-avatar2.png"
                     alt="Tahir Mustafa - Full Size"
-                    className="w-full h-full object-cover rounded-lg"
+                    fill
+                    className="object-cover rounded-lg"
                   />
                 </div>
               </DialogContent>
