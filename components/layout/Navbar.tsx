@@ -101,11 +101,14 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <Button
           variant="ghost"
-          size="icon"
-          className="md:hidden"
+          className="md:hidden h-10 w-10 p-0"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+          {isMobileMenuOpen ? (
+            <X className="!h-7 !w-7" />
+          ) : (
+            <Menu className="!h-7 !w-7" />
+          )}
         </Button>
       </nav>
 
@@ -116,7 +119,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong"
+            className="md:hidden bg-background/90 backdrop-blur-lg border-b border-border/50 shadow-xl"
           >
             <ul className="container py-6 flex flex-col gap-4">
               {navLinks.map((link, index) => (
