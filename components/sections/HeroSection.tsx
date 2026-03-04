@@ -257,7 +257,7 @@ const HeroSection = () => {
                   
                   {/* Image */}
                   <Image
-                    src="/profile-avatar2.png"
+                    src="/profile-avatar4.png"
                     alt="Tahir Mustafa"
                     fill
                     className="object-cover relative z-0"
@@ -273,11 +273,11 @@ const HeroSection = () => {
 
             {/* Avatar Dialog */}
             <Dialog open={isAvatarOpen} onOpenChange={setIsAvatarOpen}>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-xs lg:max-w-2xl p-0 bg-transparent shadow-none">
                 <DialogTitle className="sr-only">Profile Picture</DialogTitle>
                 <div className="relative w-full aspect-square">
                   <Image
-                    src="/profile-avatar2.png"
+                    src="/profile-avatar4.png"
                     alt="Tahir Mustafa - Full Size"
                     fill
                     className="object-cover rounded-lg"
