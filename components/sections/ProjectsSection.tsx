@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Github, ExternalLink, Blocks, Utensils, BookOpen } from "lucide-react";
+import { Github, ExternalLink, Blocks, Utensils, BookOpen, Tv, Hotel } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const projects = [
@@ -46,6 +46,34 @@ const projects = [
     links: {
       github: "https://github.com/TahirMustafa-NO-ONE/recipe-app",
       live: "#",
+    },
+  },
+  {
+    title: "PlayOn",
+    subtitle: "Movie & TV Show Discovery Platform",
+    description:
+      "A modern streaming discovery platform where users can browse trending movies and TV shows, filter by genre, search titles, and watch content seamlessly. Features an animated hero slider, responsive card UI, and is fully powered by the TMDb API.",
+    tech: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Axios", "TMDb API", "React Router"],
+    icon: Tv,
+    featured: true,
+    comingSoon: false,
+    links: {
+      github: "https://github.com/TahirMustafa-NO-ONE/playon-streaming",
+      live: "https://playon-streaming.vercel.app/",
+    },
+  },
+  {
+    title: "The Hill Hotel",
+    subtitle: "Luxury Hotel Management System",
+    description:
+      "An internal hotel management web app enabling staff to manage cabins, bookings, and guests in real-time. Features include secure authentication, check-in/check-out workflows, sales analytics with charts, and a custom warm gold UI with full dark mode support.",
+    tech: ["React", "Supabase", "React Query", "React Router", "Recharts", "Styled Components", "Vite"],
+    icon: Hotel,
+    featured: true,
+    comingSoon: false,
+    links: {
+      github: "https://github.com/TahirMustafa-NO-ONE/The-Hill-Hotel",
+      live: "https://the-hill-hotel.vercel.app",
     },
   },
 ];
