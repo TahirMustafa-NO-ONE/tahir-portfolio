@@ -33,7 +33,7 @@ const skillCategories = [
   {
     icon: Database,
     title: "Databases & Backend",
-    skills: ["MongoDB", "SQL Server", "RESTful APIs", "Mongoose ODM"],
+    skills: ["MongoDB", "SQL Server" , "PostgreSQL" , "Supabase" , "RESTful APIs", "Mongoose ODM"],
     color: "accent",
   },
   {
