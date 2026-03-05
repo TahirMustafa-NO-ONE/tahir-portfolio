@@ -82,7 +82,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-muted-foreground mb-6 font-mono text-sm tracking-wider"
+              className="text-muted-foreground mt-10 mb-6 font-mono text-sm tracking-wider"
             >
               {'<Hello World />'}
             </motion.p>
