@@ -60,7 +60,7 @@ const Navbar = () => {
       <nav className="container flex items-center justify-between">
         <motion.a
           href="#"
-          className="text-3xl font-extrabold font-sans gradient-text"
+          className="text-4xl font-extrabold font-sans gradient-text"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -78,7 +78,7 @@ const Navbar = () => {
             >
               <a
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -93,9 +93,9 @@ const Navbar = () => {
           transition={{ delay: 0.5 }}
           className="hidden md:block"
         >
-          <Button asChild variant="outline" className="glow-primary">
+            <Button asChild variant="outline" className="glow-primary text-lg">
             <a href="#contact">Let's Talk</a>
-          </Button>
+            </Button>
         </motion.div>
 
         {/* Mobile Menu Button */}
