@@ -23,9 +23,9 @@ const projects = [
     ],
     icon: MessageCircle,
     featured: true,
-    comingSoon: false,
+    comingSoon: true,
     links: {
-      github: "#", // add repo link
+      github: "https://github.com/TahirMustafa-NO-ONE/meshlix_app",
       live: "#",
     },
   },
@@ -49,8 +49,8 @@ const projects = [
     featured: true,
     comingSoon: false,
     links: {
-      github: "#", // add repo link
-      live: "#",
+      github: "https://github.com/TahirMustafa-NO-ONE/smiths-crm",
+      live: "https://smiths-crm.vercel.app/",
     },
   },
 
