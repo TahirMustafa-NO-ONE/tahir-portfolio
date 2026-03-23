@@ -43,8 +43,8 @@ const HeroSection = () => {
 
   useEffect(() => {
     const handlePointerMove = (event: MouseEvent) => {
-      const rotateY = ((event.clientX / window.innerWidth) - 0.5) * 30;
-      const rotateX = (0.5 - (event.clientY / window.innerHeight)) * 30;
+      const rotateY = ((event.clientX / window.innerWidth) - 0.5) * 70;
+      const rotateX = (0.5 - (event.clientY / window.innerHeight)) * 70;
 
       setTiltStyle({
         "--rotate-x": `${rotateX.toFixed(2)}deg`,
