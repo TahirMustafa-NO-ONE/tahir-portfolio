@@ -1,8 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Github, ExternalLink, Blocks, Utensils, BookOpen, Tv, Hotel, MessageCircle, Briefcase } from "lucide-react";
+import {
+  Github,
+  ExternalLink,
+  Blocks,
+  Utensils,
+  BookOpen,
+  Tv,
+  Hotel,
+  MessageCircle,
+  Briefcase,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const projects = [
@@ -29,7 +40,6 @@ const projects = [
       live: "#",
     },
   },
-
   {
     title: "Smith CRM",
     subtitle: "Enterprise Marketing CRM System",
@@ -53,7 +63,6 @@ const projects = [
       live: "https://smiths-crm.vercel.app/",
     },
   },
-
   {
     title: "Libera",
     subtitle: "Decentralized Social Network Platform",
@@ -76,7 +85,6 @@ const projects = [
       live: "#",
     },
   },
-
   {
     title: "The Hill Hotel",
     subtitle: "Luxury Hotel Management System",
@@ -99,9 +107,8 @@ const projects = [
       live: "https://the-hill-hotel.vercel.app",
     },
   },
-
   {
-    title: "Pizza Max–Style Food Delivery",
+    title: "Pizza Max-Style Food Delivery",
     subtitle: "Full-Stack Food Ordering Platform",
     description:
       "A complete food ordering and delivery platform featuring a TypeScript frontend with cart and checkout, powered by a Strapi CMS backend for menu and order management.",
@@ -122,7 +129,6 @@ const projects = [
       live: "https://semester-project-176-v2.vercel.app/",
     },
   },
-
   {
     title: "PlayOn",
     subtitle: "Movie & TV Show Discovery Platform",
@@ -141,12 +147,10 @@ const projects = [
     featured: true,
     comingSoon: false,
     links: {
-      github:
-        "https://github.com/TahirMustafa-NO-ONE/playon-streaming",
+      github: "https://github.com/TahirMustafa-NO-ONE/playon-streaming",
       live: "https://playon-streaming.vercel.app/",
     },
   },
-
   {
     title: "Moreat",
     subtitle: "Recipe Book Mobile App",
@@ -163,29 +167,37 @@ const projects = [
   },
 ];
 
+const projectThumbnailMap: Record<string, string> = {
+  Meshlix: "/projectsthumbnails/meshlix.png",
+  "Smith CRM": "/projectsthumbnails/crm.png",
+  Libera: "/projectsthumbnails/comingsoon.png",
+  "The Hill Hotel": "/projectsthumbnails/the-hill-hotel.png",
+  "Pizza Max-Style Food Delivery": "/projectsthumbnails/pizzamax.png",
+  PlayOn: "/projectsthumbnails/playon.png",
+  Moreat: "/projectsthumbnails/moreat.png",
+};
+
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-32 relative">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
+    <section id="projects" className="relative py-32">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
 
       <div className="container relative" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="max-w-6xl mx-auto"
+          className="mx-auto max-w-6xl"
         >
-          {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <motion.span
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.2 }}
-              className="text-primary font-mono text-sm tracking-wider"
+              className="font-mono text-sm tracking-wider text-primary"
             >
               03. PROJECTS
             </motion.span>
@@ -193,7 +205,7 @@ const ProjectsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl font-bold mt-4"
+              className="mt-4 text-4xl font-bold md:text-5xl"
             >
               Featured <span className="gradient-text">Work</span>
             </motion.h2>
@@ -201,102 +213,144 @@ const ProjectsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4 }}
-              className="text-muted-foreground mt-4 max-w-2xl mx-auto"
+              className="mx-auto mt-4 max-w-2xl text-muted-foreground"
             >
-              A selection of projects that showcase my skills in full-stack development,
-              cross-platform apps, and blockchain technology.
+              A selection of projects that showcase my skills in full-stack
+              development, cross-platform apps, and blockchain technology.
             </motion.p>
           </div>
 
-          {/* Projects Grid */}
           <div className="space-y-8">
             {projects.map((project, index) => (
-              <motion.div
+              <motion.article
                 key={project.title}
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.15, duration: 0.6 }}
-                className="group"
+                className="group relative overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 backdrop-blur-sm card-hover"
               >
-                <div className="relative p-8 md:p-10 rounded-3xl border border-border/50 bg-card/30 backdrop-blur-sm overflow-hidden card-hover">
-                  {/* Background Gradient */}
-                  <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_40%),radial-gradient(circle_at_bottom_right,hsl(var(--accent)/0.1),transparent_35%)] opacity-80" />
+                <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
-                  <div className="relative z-10 flex flex-col md:flex-row gap-8">
-                    {/* Icon */}
-                    <div className="flex-shrink-0">
-                      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <project.icon className="w-8 h-8 text-primary" />
-                      </div>
-                    </div>
+                <div className="relative z-10 grid gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-8 lg:p-7">
+                  <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-background/40 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.9)]">
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <Image
+                        src={
+                          projectThumbnailMap[project.title] ??
+                          "/projectsthumbnails/comingsoon.png"
+                        }
+                        alt={`${project.title} project preview`}
+                        fill
+                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
+                      <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
 
-                    {/* Content */}
-                    <div className="flex-1 space-y-4">
-                      <div>
-                        <span className="text-xs font-mono text-primary tracking-wider uppercase">
-                          {project.featured ? "Featured Project" : "Project"}
+                      <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
+                        <span className="rounded-full border border-white/15 bg-background/80 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.24em] text-primary backdrop-blur-md">
+                          {project.featured ? "Featured" : "Selected"}
                         </span>
-                        <h3 className="text-2xl md:text-3xl font-bold mt-1 group-hover:text-primary transition-colors">
-                          {project.title}
-                        </h3>
-                        <p className="text-muted-foreground mt-1">{project.subtitle}</p>
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-background/70 text-primary shadow-[0_12px_28px_-16px_hsl(var(--primary)/0.8)] backdrop-blur-md">
+                          <project.icon className="h-5 w-5" />
+                        </div>
                       </div>
 
-                      <p className="text-muted-foreground leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {project.tech.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 text-xs font-mono rounded-full bg-secondary/50 text-foreground border border-border/30"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Links */}
-                      <div className="flex gap-3 pt-4">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="gap-2"
-                          asChild
-                        >
-                          <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-4 h-4" />
-                            Code
-                          </a>
-                        </Button>
-                        {project.comingSoon ? (
-                          <Button
-                            size="sm"
-                            className="gap-2"
-                            disabled
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            Coming Soon
-                          </Button>
-                        ) : (
-                          <Button
-                            size="sm"
-                            className="gap-2"
-                            asChild
-                          >
-                            <a href={project.links.live} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4" />
-                              Live Demo
-                            </a>
-                          </Button>
-                        )}
+                      <div className="absolute inset-x-4 bottom-4">
+                        <div className="rounded-2xl border border-white/10 bg-background/72 p-4 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl">
+                          <p className="text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
+                            {project.subtitle}
+                          </p>
+                          <h3 className="mt-2 text-xl font-semibold leading-tight text-foreground transition-colors duration-300 group-hover:text-primary sm:text-2xl">
+                            {project.title}
+                          </h3>
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  <div className="flex min-w-0 flex-col justify-between gap-6 px-1 py-2">
+                    <div className="space-y-5">
+                      <div className="space-y-3">
+                        <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground">
+                          <span>Portfolio Case Study</span>
+                          {project.comingSoon && (
+                            <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-primary">
+                              Launching Soon
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="max-w-xl text-sm leading-7 text-muted-foreground sm:text-[15px]">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <div className="rounded-2xl border border-white/10 bg-background/35 p-4 sm:p-5">
+                        <p className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
+                          Tech Stack
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {project.tech.map((tech) => (
+                            <span
+                              key={tech}
+                              className="rounded-full border border-border/60 bg-secondary/45 px-3 py-1.5 text-[11px] font-mono text-foreground/90 transition-colors duration-300 group-hover:border-primary/20 group-hover:bg-primary/8"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 border-t border-white/10 pt-1 sm:pt-3">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-11 gap-2 rounded-full border-white/10 bg-background/40 px-5 hover:border-primary/30 hover:bg-primary/10"
+                        asChild
+                      >
+                        <a
+                          href={project.links.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Open ${project.title} source code`}
+                        >
+                          <Github className="h-4 w-4" />
+                          Code
+                        </a>
+                      </Button>
+                      {project.comingSoon ? (
+                        <Button
+                          size="sm"
+                          className="h-11 gap-2 rounded-full px-5"
+                          disabled
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          Coming Soon
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          className="h-11 gap-2 rounded-full px-5 glow-primary"
+                          asChild
+                        >
+                          <a
+                            href={project.links.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open live demo for ${project.title}`}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                            Live Demo
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </motion.div>
