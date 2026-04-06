@@ -245,7 +245,7 @@ const ProjectsSection = () => {
                         className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                         sizes="(min-width: 1024px) 50vw, 100vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent sm:from-background/95 sm:via-background/20" />
                       <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
 
                       <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
@@ -257,7 +257,7 @@ const ProjectsSection = () => {
                         </div>
                       </div>
 
-                      <div className="absolute inset-x-4 bottom-4">
+                      <div className="absolute inset-x-4 bottom-4 hidden sm:block">
                         <div className="rounded-2xl border border-white/10 bg-background/72 p-4 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl">
                           <p className="text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
                             {project.subtitle}
@@ -267,6 +267,15 @@ const ProjectsSection = () => {
                           </h3>
                         </div>
                       </div>
+                    </div>
+
+                    <div className="border-t border-white/10 bg-background/70 p-4 sm:hidden">
+                      <p className="text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
+                        {project.subtitle}
+                      </p>
+                      <h3 className="mt-2 text-xl font-semibold leading-tight text-foreground transition-colors duration-300 group-hover:text-primary">
+                        {project.title}
+                      </h3>
                     </div>
                   </div>
 
