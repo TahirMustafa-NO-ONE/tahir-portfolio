@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TypewriterText from "@/components/ui/TypewriterText";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   Dialog,
@@ -16,6 +16,7 @@ import {
 const HeroSection = () => {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const avatarTiltRef = useRef<HTMLDivElement | null>(null);
   const [tiltStyle, setTiltStyle] = useState<CSSProperties>({
     "--rotate-x": "0deg",
     "--rotate-y": "0deg",
@@ -43,8 +44,20 @@ const HeroSection = () => {
 
   useEffect(() => {
     const handlePointerMove = (event: MouseEvent) => {
-      const rotateY = ((event.clientX / window.innerWidth) - 0.5) * 70;
-      const rotateX = (0.5 - (event.clientY / window.innerHeight)) * 70;
+      const avatarElement = avatarTiltRef.current;
+
+      if (!avatarElement) {
+        return;
+      }
+
+      const rect = avatarElement.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const maxTilt = 30;
+      const offsetX = (event.clientX - centerX) / (rect.width / 2);
+      const offsetY = (event.clientY - centerY) / (rect.height / 2);
+      const rotateY = Math.max(-1, Math.min(1, offsetX)) * maxTilt;
+      const rotateX = Math.max(-1, Math.min(1, -offsetY)) * maxTilt;
 
       setTiltStyle({
         "--rotate-x": `${rotateX.toFixed(2)}deg`,
@@ -244,7 +257,11 @@ const HeroSection = () => {
                 className="relative cursor-pointer"
                 onClick={() => setIsAvatarOpen(true)}
               >
-                <div className="hero-avatar-tilt relative" style={tiltStyle}>
+                <div
+                  ref={avatarTiltRef}
+                  className="hero-avatar-tilt relative"
+                  style={tiltStyle}
+                >
                   <div className="hero-avatar-float relative flex items-center justify-center">
                     <div className="pointer-events-none absolute inset-10 rounded-full bg-[radial-gradient(circle,_rgba(116,79,255,0.28)_0%,_rgba(34,211,238,0.18)_40%,_transparent_72%)] blur-2xl" />
                     <div className="pointer-events-none absolute inset-8 rounded-full opacity-80 [box-shadow:0_0_45px_rgba(116,79,255,0.28),0_0_100px_rgba(34,211,238,0.18),0_0_150px_rgba(59,130,246,0.12)]" />
