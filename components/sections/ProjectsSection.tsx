@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
 import {
   Github,
   ExternalLink,
@@ -15,6 +15,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const projects = [
   {
@@ -180,6 +181,21 @@ const projectThumbnailMap: Record<string, string> = {
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
+
+  const openProjectPreview = (project: (typeof projects)[number]) => {
+    setSelectedProject(project);
+  };
+
+  const handleCardKeyDown = (
+    event: KeyboardEvent<HTMLElement>,
+    project: (typeof projects)[number]
+  ) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openProjectPreview(project);
+    }
+  };
 
   return (
     <section id="projects" className="relative py-32">
@@ -227,7 +243,12 @@ const ProjectsSection = () => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.15, duration: 0.6 }}
-                className="group relative overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 backdrop-blur-sm card-hover"
+                className="group relative overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 backdrop-blur-sm card-hover cursor-pointer"
+                onClick={() => openProjectPreview(project)}
+                onKeyDown={(event) => handleCardKeyDown(event, project)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Open preview for ${project.title}`}
               >
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_40%),radial-gradient(circle_at_bottom_right,hsl(var(--accent)/0.1),transparent_35%)] opacity-80" />
                 <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
@@ -325,6 +346,7 @@ const ProjectsSection = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Open ${project.title} source code`}
+                          onClick={(event) => event.stopPropagation()}
                         >
                           <Github className="h-4 w-4" />
                           Code
@@ -350,6 +372,7 @@ const ProjectsSection = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`Open live demo for ${project.title}`}
+                            onClick={(event) => event.stopPropagation()}
                           >
                             <ExternalLink className="h-4 w-4" />
                             Live Demo
@@ -364,6 +387,39 @@ const ProjectsSection = () => {
           </div>
         </motion.div>
       </div>
+
+      <Dialog
+        open={selectedProject !== null}
+        onOpenChange={(open) => {
+          if (!open) {
+            setSelectedProject(null);
+          }
+        }}
+      >
+        <DialogContent className="max-w-[92vw] border-white/10 bg-background/95 p-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)] sm:max-w-4xl">
+          <DialogTitle className="sr-only">
+            {selectedProject ? `${selectedProject.title} preview` : "Project preview"}
+          </DialogTitle>
+          {selectedProject && (
+            <div className="overflow-hidden rounded-[1.25rem]">
+              <div className="relative aspect-[16/10] w-full bg-background">
+                <Image
+                  src={
+                    projectThumbnailMap[selectedProject.title] ??
+                    "/projectsthumbnails/comingsoon.png"
+                  }
+                  alt={`${selectedProject.title} project preview`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="92vw"
+                  priority
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
