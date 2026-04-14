@@ -8,7 +8,6 @@ import {
   Database,
   Cloud,
   Blocks,
-  Layers,
 } from "lucide-react";
 
 const skillCategories = [
@@ -49,7 +48,7 @@ const SkillsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-32 relative">
+    <section id="skills" className="relative overflow-x-clip py-32">
       <div className="container" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -94,7 +93,7 @@ const SkillsSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + categoryIndex * 0.1, duration: 0.5 }}
-                className="group relative"
+                className="group relative min-w-0"
               >
                 <div className="h-full p-6 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm card-hover overflow-hidden">
                   {/* Background Glow */}
@@ -105,7 +104,7 @@ const SkillsSection = () => {
                   />
 
                   {/* Header */}
-                  <div className="flex items-center gap-3 mb-6 relative z-10">
+                  <div className="relative z-10 mb-6 flex min-w-0 items-center gap-3">
                     <div
                       className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                         category.color === "primary"
@@ -115,7 +114,7 @@ const SkillsSection = () => {
                     >
                       <category.icon className="w-5 h-5" />
                     </div>
-                    <h3 className="font-semibold text-lg">{category.title}</h3>
+                    <h3 className="min-w-0 break-words text-lg font-semibold">{category.title}</h3>
                   </div>
 
                   {/* Skills */}

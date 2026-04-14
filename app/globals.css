@@ -122,10 +122,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip;
   }
 
   ::selection {
@@ -226,6 +228,10 @@
     @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg;
     @apply bg-secondary/50 text-foreground border border-border/50;
     @apply transition-all duration-300;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
   }
 
   .skill-badge:hover {

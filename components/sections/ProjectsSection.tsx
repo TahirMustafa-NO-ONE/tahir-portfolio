@@ -198,7 +198,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="relative py-32">
+    <section id="projects" className="relative overflow-x-clip py-32">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
 
       <div className="container relative" ref={ref}>
@@ -243,7 +243,7 @@ const ProjectsSection = () => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.15, duration: 0.6 }}
-                className="group relative overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 backdrop-blur-sm card-hover cursor-pointer"
+                className="group relative min-w-0 cursor-pointer overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 backdrop-blur-sm card-hover"
                 onClick={() => openProjectPreview(project)}
                 onKeyDown={(event) => handleCardKeyDown(event, project)}
                 role="button"
@@ -269,8 +269,8 @@ const ProjectsSection = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent sm:from-background/95 sm:via-background/20" />
                       <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
 
-                      <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
-                        <span className="rounded-full border border-white/15 bg-background/80 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.24em] text-primary backdrop-blur-md">
+                      <div className="absolute left-4 right-4 top-4 flex min-w-0 items-start justify-between gap-3">
+                        <span className="max-w-full rounded-full border border-white/15 bg-background/80 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.24em] text-primary backdrop-blur-md">
                           {project.featured ? "Featured" : "Selected"}
                         </span>
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-background/70 text-primary shadow-[0_12px_28px_-16px_hsl(var(--primary)/0.8)] backdrop-blur-md">
@@ -291,10 +291,10 @@ const ProjectsSection = () => {
                     </div>
 
                     <div className="border-t border-white/10 bg-background/70 p-4 sm:hidden">
-                      <p className="text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
+                      <p className="break-words text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
                         {project.subtitle}
                       </p>
-                      <h3 className="mt-2 text-xl font-semibold leading-tight text-foreground transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="mt-2 break-words text-xl font-semibold leading-tight text-foreground transition-colors duration-300 group-hover:text-primary">
                         {project.title}
                       </h3>
                     </div>
@@ -325,7 +325,7 @@ const ProjectsSection = () => {
                           {project.tech.map((tech) => (
                             <span
                               key={tech}
-                              className="rounded-full border border-border/60 bg-secondary/45 px-3 py-1.5 text-[11px] font-mono text-foreground/90 transition-colors duration-300 group-hover:border-primary/20 group-hover:bg-primary/8"
+                              className="max-w-full rounded-full border border-border/60 bg-secondary/45 px-3 py-1.5 text-center text-[11px] font-mono text-foreground/90 transition-colors duration-300 group-hover:border-primary/20 group-hover:bg-primary/8 [overflow-wrap:anywhere]"
                             >
                               {tech}
                             </span>

@@ -10,7 +10,7 @@ import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen overflow-x-clip bg-background">
       <Navbar />
       <HeroSection />
       <TechStackSection />
