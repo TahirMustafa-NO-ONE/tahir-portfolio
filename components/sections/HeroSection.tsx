@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TypewriterText from "@/components/ui/TypewriterText";
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   Dialog,
@@ -17,10 +17,9 @@ const HeroSection = () => {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const avatarTiltRef = useRef<HTMLDivElement | null>(null);
-  const [tiltStyle, setTiltStyle] = useState<CSSProperties>({
-    "--rotate-x": "0deg",
-    "--rotate-y": "0deg",
-  } as CSSProperties);
+  const tiltTargetRef = useRef({ x: 0, y: 0 });
+  const tiltCurrentRef = useRef({ x: 0, y: 0 });
+  const tiltFrameRef = useRef<number | null>(null);
   const roles = [
     "Full-Stack Developer",
     "Web3 Enthusiast",
@@ -35,14 +34,24 @@ const HeroSection = () => {
     { size: "h-2.5 w-2.5", orbit: "hero-sparkle-orbit-5", color: "from-cyan-200 to-fuchsia-400", delay: "-5.5s" },
   ];
 
-  const resetAvatarTilt = () => {
-    setTiltStyle({
-      "--rotate-x": "0deg",
-      "--rotate-y": "0deg",
-    } as CSSProperties);
-  };
-
   useEffect(() => {
+    const animateTilt = () => {
+      const avatarElement = avatarTiltRef.current;
+
+      if (!avatarElement) {
+        tiltFrameRef.current = null;
+        return;
+      }
+
+      tiltCurrentRef.current.x += (tiltTargetRef.current.x - tiltCurrentRef.current.x) * 0.12;
+      tiltCurrentRef.current.y += (tiltTargetRef.current.y - tiltCurrentRef.current.y) * 0.12;
+
+      avatarElement.style.setProperty("--rotate-x", `${tiltCurrentRef.current.x.toFixed(2)}deg`);
+      avatarElement.style.setProperty("--rotate-y", `${tiltCurrentRef.current.y.toFixed(2)}deg`);
+
+      tiltFrameRef.current = window.requestAnimationFrame(animateTilt);
+    };
+
     const handlePointerMove = (event: MouseEvent) => {
       const avatarElement = avatarTiltRef.current;
 
@@ -53,22 +62,28 @@ const HeroSection = () => {
       const rect = avatarElement.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      const maxTilt = 30;
+      const maxTilt = 22;
       const offsetX = (event.clientX - centerX) / (rect.width / 2);
       const offsetY = (event.clientY - centerY) / (rect.height / 2);
-      const rotateY = Math.max(-1, Math.min(1, offsetX)) * maxTilt;
-      const rotateX = Math.max(-1, Math.min(1, -offsetY)) * maxTilt;
 
-      setTiltStyle({
-        "--rotate-x": `${rotateX.toFixed(2)}deg`,
-        "--rotate-y": `${rotateY.toFixed(2)}deg`,
-      } as CSSProperties);
+      tiltTargetRef.current = {
+        x: Math.max(-1, Math.min(1, -offsetY)) * maxTilt,
+        y: Math.max(-1, Math.min(1, offsetX)) * maxTilt,
+      };
     };
 
-    window.addEventListener("mousemove", handlePointerMove);
+    const resetAvatarTilt = () => {
+      tiltTargetRef.current = { x: 0, y: 0 };
+    };
+
+    tiltFrameRef.current = window.requestAnimationFrame(animateTilt);
+    window.addEventListener("mousemove", handlePointerMove, { passive: true });
     window.addEventListener("mouseleave", resetAvatarTilt);
 
     return () => {
+      if (tiltFrameRef.current !== null) {
+        window.cancelAnimationFrame(tiltFrameRef.current);
+      }
       window.removeEventListener("mousemove", handlePointerMove);
       window.removeEventListener("mouseleave", resetAvatarTilt);
     };
@@ -260,7 +275,6 @@ const HeroSection = () => {
                 <div
                   ref={avatarTiltRef}
                   className="hero-avatar-tilt relative"
-                  style={tiltStyle}
                 >
                   <div className="hero-avatar-float relative flex items-center justify-center">
                     <div className="pointer-events-none absolute inset-10 rounded-full bg-[radial-gradient(circle,_rgba(116,79,255,0.28)_0%,_rgba(34,211,238,0.18)_40%,_transparent_72%)] blur-2xl" />
@@ -356,9 +370,11 @@ const HeroSection = () => {
                 </div>
                 <style jsx>{`
                   .hero-avatar-tilt {
+                    --rotate-x: 0deg;
+                    --rotate-y: 0deg;
                     transform-style: preserve-3d;
-                    transition: transform 220ms ease-out;
                     transform: perspective(800px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+                    will-change: transform;
                   }
 
                   .hero-avatar-float {
