@@ -62,7 +62,7 @@ const HeroSection = () => {
       const rect = avatarElement.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      const maxTilt = 22;
+      const maxTilt = 30;
       const offsetX = (event.clientX - centerX) / (rect.width / 2);
       const offsetY = (event.clientY - centerY) / (rect.height / 2);
 
