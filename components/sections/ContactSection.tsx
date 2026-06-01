@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Mail, MapPin, Phone, Send, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,27 +54,43 @@ const ContactSection = () => {
     message: "",
   });
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("y_FfAKnBYkrIr_t3v");
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast({
+        title: "Missing fields",
+        description: "Please fill in all fields before sending.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       // EmailJS configuration
       const serviceId = "service_portfolio_gmail";
       const templateId = "template_portfolio_conta";
-      const publicKey = "y_FfAKnBYkrIr_t3v";
 
       // Send email using EmailJS
-      await emailjs.send(
+      const response = await emailjs.send(
         serviceId,
         templateId,
         {
           user_name: formData.name,
           user_email: formData.email,
           message: formData.message,
-        },
-        publicKey
+        }
       );
+
+      console.log("Email sent successfully:", response);
 
       toast({
         title: "Message sent!",
@@ -82,11 +98,34 @@ const ContactSection = () => {
       });
 
       setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error("EmailJS Error:", error);
+    } catch (error: any) {
+      const errorDetails = {
+        message: error?.message || "Unknown error",
+        status: error?.status,
+        text: error?.text,
+        name: error?.name,
+        fullError: error,
+      };
+
+      // Log error to server (will print in terminal)
+      await fetch("/api/logs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          error: errorDetails,
+          timestamp: new Date().toISOString(),
+          source: "ContactSection - EmailJS",
+        }),
+      }).catch((fetchErr) => {
+        console.error("Failed to send log to server:", fetchErr);
+      });
+
+      // Also log locally for development
+      console.error("EmailJS Error Details:", errorDetails);
+      
       toast({
         title: "Failed to send message",
-        description: "Something went wrong. Please try again or contact me directly.",
+        description: error?.text || "Something went wrong. Please try again or contact me directly.",
         variant: "destructive",
       });
     } finally {
