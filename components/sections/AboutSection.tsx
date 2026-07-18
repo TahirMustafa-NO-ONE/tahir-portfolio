@@ -75,7 +75,7 @@ const AboutSection = () => {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I'm a passionate{" "}
                 <span className="text-foreground font-medium">Full-Stack Developer</span>{" "}
-                currently pursuing my Bachelor's degree in Software Engineering at{" "}
+                with a Bachelor's degree in Software Engineering from{" "}
                 <span className="text-primary">COMSATS University Islamabad</span>,
                 Lahore Campus.
               </p>
