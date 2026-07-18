@@ -10,7 +10,7 @@ const timeline = [
     title: "Bachelor of Science in Software Engineering",
     organization: "COMSATS University Islamabad, Lahore Campus",
     location: "Lahore, Punjab, Pakistan",
-    date: "Expected June 2026",
+    date: "Graduated June 2026",
     description:
       "Pursuing a comprehensive education in software engineering with focus on modern development practices, algorithms, and emerging technologies like blockchain and Web3.",
     icon: GraduationCap,
@@ -20,7 +20,7 @@ const timeline = [
     title: "Libera - Decentralized Social Network",
     organization: "Team Project",
     location: "Remote",
-    date: "2024",
+    date: "2025-2026",
     description:
       "Led development of blockchain-powered social platform using Hardhat, Solidity, and Next.js. Implemented privacy-preserving features and gasless transactions.",
     icon: Briefcase,
