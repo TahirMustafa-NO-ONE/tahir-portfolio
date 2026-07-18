@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -91,25 +92,30 @@ const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="hidden md:block"
+          className="hidden md:flex items-center gap-2"
         >
+            <ThemeToggle />
             <Button asChild variant="outline" className="glow-primary text-lg">
             <a href="#contact">Let's Talk</a>
             </Button>
         </motion.div>
 
         {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          className="md:hidden h-10 w-10 p-0"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? (
-            <X className="!h-7 !w-7" />
-          ) : (
-            <Menu className="!h-7 !w-7" />
-          )}
-        </Button>
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <Button
+            variant="ghost"
+            className="h-10 w-10 p-0"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="!h-7 !w-7" />
+            ) : (
+              <Menu className="!h-7 !w-7" />
+            )}
+          </Button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
