@@ -17,7 +17,7 @@ export const certifications: Certification[] = [
     title: "Artificial Intelligence Fundamentals",
     issuer: "IBM SkillsBuild",
     issueDate: "july 17, 2026", 
-    credentialId: "PWID-B0133500",
+    credentialId: "CREDLY-29bdaec3-af04-458e-a70e-2e6fa78c5dd5",
     credentialUrl:
       "https://www.credly.com/badges/a1b8456c-ae18-49ac-95a9-136bc4f898dc/public_url",
     badge: "/certifications/AIF.png",
