@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TypewriterText from "@/components/ui/TypewriterText";
 import { useEffect, useRef, useState } from "react";
@@ -11,6 +11,17 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  greeting,
+  name,
+  roles,
+  description,
+  ctaButtons,
+  socialLinks,
+  avatar,
+  scrollIndicatorLabel,
+  sparkles,
+} from "@/data/hero";
 
 
 const HeroSection = () => {
@@ -20,19 +31,6 @@ const HeroSection = () => {
   const tiltTargetRef = useRef({ x: 0, y: 0 });
   const tiltCurrentRef = useRef({ x: 0, y: 0 });
   const tiltFrameRef = useRef<number | null>(null);
-  const roles = [
-    "Full-Stack Developer",
-    "Web3 Enthusiast",
-    "Flutter Developer",
-    "Blockchain Explorer",
-  ];
-  const sparkles = [
-    { size: "h-2.5 w-2.5", orbit: "hero-sparkle-orbit-1", color: "from-cyan-300 to-blue-500", delay: "0s" },
-    { size: "h-2 w-2", orbit: "hero-sparkle-orbit-2", color: "from-fuchsia-400 to-violet-500", delay: "-2s" },
-    { size: "h-3 w-3", orbit: "hero-sparkle-orbit-3", color: "from-sky-300 to-cyan-400", delay: "-4.5s" },
-    { size: "h-2 w-2", orbit: "hero-sparkle-orbit-4", color: "from-violet-300 to-blue-500", delay: "-1.5s" },
-    { size: "h-2.5 w-2.5", orbit: "hero-sparkle-orbit-5", color: "from-cyan-200 to-fuchsia-400", delay: "-5.5s" },
-  ];
 
   useEffect(() => {
     const animateTilt = () => {
@@ -150,7 +148,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-muted-foreground mt-10 mb-6 font-mono text-sm tracking-wider"
             >
-              {'<Hello World />'}
+              {greeting}
             </motion.p>
 
             {/* Name */}
@@ -160,8 +158,8 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8"
             >
-              <span className="text-foreground">I'm </span>
-              <span className="gradient-text text-glow">Tahir Mustafa</span>
+              <span className="text-foreground">{name.prefix}</span>
+              <span className="gradient-text text-glow">{name.highlight}</span>
             </motion.h1>
 
             {/* Animated Role */}
@@ -187,10 +185,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-muted-foreground mb-12 text-base lg:text-lg leading-relaxed"
             >
-              Bringing visions to life through code and creativity. I design and develop
-              cutting-edge web and mobile applications that prioritize user experience
-              and technical excellence. Whether it's exploring new technologies or refining
-              the details, every line of code is written with purpose and passion.
+              {description}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -205,14 +200,14 @@ const HeroSection = () => {
                 className="glow-primary group"
                 asChild
               >
-                <a href="#projects">
-                  View Projects
+                <a href={ctaButtons.primary.href}>
+                  {ctaButtons.primary.label}
                   <motion.span
                     className="inline-block ml-2"
                     animate={{ x: [0, 4, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    →
+                    {ctaButtons.primary.arrow}
                   </motion.span>
                 </a>
               </Button>
@@ -221,8 +216,8 @@ const HeroSection = () => {
                 variant="outline"
                 asChild
               >
-                <a href="/Tahir-Software-Engineer-CV.pdf" download="Tahir_Mustafa_Resume.pdf">
-                  Download Resume
+                <a href={ctaButtons.secondary.href} download={ctaButtons.secondary.download}>
+                  {ctaButtons.secondary.label}
                 </a>
               </Button>
             </motion.div>
@@ -234,11 +229,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="flex gap-4 justify-center lg:justify-start pb-10"
             >
-              {[
-                { icon: Github, href: "https://github.com/TahirMustafa-NO-ONE", label: "GitHub" },
-                { icon: Linkedin, href: "https://linkedin.com/in/tahir-mustafa-2b385b2b9", label: "LinkedIn" },
-                { icon: Mail, href: "mailto:tahirmustafa161123@gmail.com", label: "Email" },
-              ].map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
                   href={href}
@@ -353,8 +344,8 @@ const HeroSection = () => {
 
                       {/* Image */}
                       <Image
-                        src="/profile-avatar4.png"
-                        alt="Tahir Mustafa"
+                        src={avatar.src}
+                        alt={avatar.alt}
                         fill
                         className="relative z-0 object-cover"
                         onLoad={() => {
@@ -471,11 +462,11 @@ const HeroSection = () => {
             {/* Avatar Dialog */}
             <Dialog open={isAvatarOpen} onOpenChange={setIsAvatarOpen}>
               <DialogContent className="max-w-xs lg:max-w-2xl p-0 bg-transparent shadow-none">
-                <DialogTitle className="sr-only">Profile Picture</DialogTitle>
+                <DialogTitle className="sr-only">{avatar.dialogTitle}</DialogTitle>
                 <div className="relative w-full aspect-square">
                   <Image
-                    src="/profile-avatar4.png"
-                    alt="Tahir Mustafa - Full Size"
+                    src={avatar.src}
+                    alt={avatar.fullAlt}
                     fill
                     className="object-cover rounded-lg"
                   />
@@ -499,7 +490,7 @@ const HeroSection = () => {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <span className="text-xs font-mono tracking-wider">SCROLL</span>
+          <span className="text-xs font-mono tracking-wider">{scrollIndicatorLabel}</span>
           <ArrowDown className="w-4 h-4" />
         </motion.a>
       </motion.div>

@@ -3,45 +3,11 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
-  Code,
-  Globe,
-  Database,
-  Cloud,
-  Blocks,
-} from "lucide-react";
-
-const skillCategories = [
-  {
-    icon: Code,
-    title: "Programming Languages",
-    skills: ["C++", "Java", "Python", "JavaScript (ES6+)", "TypeScript", "SQL", "Dart", "Solidity", "HTML5", "CSS3"],
-    color: "primary",
-  },
-  {
-    icon: Globe,
-    title: "Web & App Development",
-    skills: ["React.js", "Next.js (v15)", "Node.js", "Express.js", "Flutter", "Tailwind CSS", "Bootstrap", "EJS", "Strapi CMS"],
-    color: "accent",
-  },
-  {
-    icon: Blocks,
-    title: "Blockchain & Web3",
-    skills: ["Solidity (0.8.28)", "Hardhat (3.0.6)", "Web3.js", "Viem", "MetaMask Integration", "Smart Contracts", "DApp Architecture", "Decentralized Identity"],
-    color: "primary",
-  },
-  {
-    icon: Database,
-    title: "Databases & Backend",
-    skills: ["MongoDB", "SQL Server" , "PostgreSQL" , "Supabase" , "RESTful APIs", "Mongoose ODM"],
-    color: "accent",
-  },
-  {
-    icon: Cloud,
-    title: "DevOps & Cloud",
-    skills: ["Docker", "Git & GitHub", "CI/CD (Basics)", "Microsoft Azure (Fundamentals)"],
-    color: "primary",
-  },
-];
+  sectionLabel,
+  heading,
+  description,
+  skillCategories,
+} from "@/data/skills";
 
 const SkillsSection = () => {
   const ref = useRef(null);
@@ -64,7 +30,7 @@ const SkillsSection = () => {
               transition={{ delay: 0.2 }}
               className="text-primary font-mono text-sm tracking-wider"
             >
-              02. SKILLS
+              {sectionLabel}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -72,7 +38,8 @@ const SkillsSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-bold mt-4"
             >
-              Technical <span className="gradient-text">Expertise</span>
+              {heading.prefix}
+              <span className="gradient-text">{heading.highlight}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -80,8 +47,7 @@ const SkillsSection = () => {
               transition={{ delay: 0.4 }}
               className="text-muted-foreground mt-4 max-w-2xl mx-auto"
             >
-              A comprehensive toolkit spanning modern web development,
-              cross-platform mobile apps, and decentralized technologies.
+              {description}
             </motion.p>
           </div>
 

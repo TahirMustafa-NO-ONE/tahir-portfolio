@@ -3,194 +3,32 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { KeyboardEvent, useRef, useState } from "react";
-import {
-  Github,
-  ExternalLink,
-  Blocks,
-  Utensils,
-  BookOpen,
-  Tv,
-  Hotel,
-  MessageCircle,
-  Briefcase,
-} from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-
-const projects = [
-  {
-    title: "Meshlix",
-    subtitle: "Decentralized XMTP Chat App (Flutter + Web3)",
-    description:
-      "A production-grade decentralized chat application built with Flutter and XMTP. Features Web3Auth onboarding, secure private key handling, per-wallet local data isolation, offline-first messaging, and real-time sync via a Node.js backend bridge using WebSocket and REST APIs.",
-    tech: [
-      "Flutter",
-      "Dart",
-      "XMTP",
-      "Web3Auth",
-      "Node.js",
-      "Hive",
-      "WebSocket",
-      "Secure Storage",
-    ],
-    icon: MessageCircle,
-    featured: true,
-    comingSoon: true,
-    links: {
-      github: "https://github.com/TahirMustafa-NO-ONE/meshlix_app",
-      live: "#",
-    },
-  },
-  {
-    title: "Smith CRM",
-    subtitle: "Enterprise Marketing CRM System",
-    description:
-      "A full-featured enterprise CRM built with Next.js and MongoDB, featuring client management, project tracking, analytics dashboards, email automation with Resend, role-based authentication via NextAuth, and production-ready deployment with Vercel.",
-    tech: [
-      "Next.js 14",
-      "React",
-      "MongoDB",
-      "Mongoose",
-      "NextAuth",
-      "Tailwind CSS",
-      "Resend",
-      "pnpm",
-    ],
-    icon: Briefcase,
-    featured: true,
-    comingSoon: false,
-    links: {
-      github: "https://github.com/TahirMustafa-NO-ONE/smiths-crm",
-      live: "https://smiths-crm.vercel.app/",
-    },
-  },
-  {
-    title: "Libera",
-    subtitle: "Decentralized Social Network Platform",
-    description:
-      "A blockchain-powered social platform with privacy-preserving relayer services, a paymaster for gasless interactions and community driven moderation system. Built as a team project showcasing Web3 best practices.",
-    tech: [
-      "Solidity",
-      "Hardhat",
-      "Next.js 15",
-      "Fastify.js",
-      "React 19",
-      "TypeScript",
-      "Tailwind",
-      "Viem/Web3",
-    ],
-    icon: Blocks,
-    featured: true,
-    comingSoon: true,
-    links: {
-      github: "https://github.com/fa22-bse-044/libera",
-      live: "#",
-    },
-  },
-  {
-    title: "The Hill Hotel",
-    subtitle: "Luxury Hotel Management System",
-    description:
-      "An internal hotel management web app enabling staff to manage cabins, bookings, and guests in real-time. Features include secure authentication, analytics dashboards, and modern UI with dark mode.",
-    tech: [
-      "React",
-      "Supabase",
-      "React Query",
-      "React Router",
-      "Recharts",
-      "Styled Components",
-      "Vite",
-    ],
-    icon: Hotel,
-    featured: true,
-    comingSoon: false,
-    links: {
-      github: "https://github.com/TahirMustafa-NO-ONE/The-Hill-Hotel",
-      live: "https://the-hill-hotel.vercel.app",
-    },
-  },
-  {
-    title: "Pizza Max-Style Food Delivery",
-    subtitle: "Full-Stack Food Ordering Platform",
-    description:
-      "A complete food ordering and delivery platform featuring a TypeScript frontend with cart and checkout, powered by a Strapi CMS backend for menu and order management.",
-    tech: [
-      "TypeScript",
-      "React",
-      "Node.js",
-      "Express",
-      "Strapi",
-      "Tailwind CSS",
-    ],
-    icon: Utensils,
-    featured: true,
-    comingSoon: false,
-    links: {
-      github:
-        "https://github.com/TahirMustafa-NO-ONE/semester-project-176-v2",
-      live: "https://semester-project-176-v2.vercel.app/",
-    },
-  },
-  {
-    title: "PlayOn",
-    subtitle: "Movie & TV Show Discovery Platform",
-    description:
-      "A streaming discovery platform powered by TMDb API with search, filtering, trending content, and responsive UI with animated components.",
-    tech: [
-      "React 18",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS",
-      "Axios",
-      "TMDb API",
-      "React Router",
-    ],
-    icon: Tv,
-    featured: true,
-    comingSoon: false,
-    links: {
-      github: "https://github.com/TahirMustafa-NO-ONE/playon-streaming",
-      live: "https://playon-streaming.vercel.app/",
-    },
-  },
-  {
-    title: "Moreat",
-    subtitle: "Recipe Book Mobile App",
-    description:
-      "A cross-platform Flutter recipe app with search, filtering, favorites, custom lists, and recommendation features using REST APIs.",
-    tech: ["Flutter", "Dart", "Firebase", "REST APIs"],
-    icon: BookOpen,
-    featured: false,
-    comingSoon: true,
-    links: {
-      github: "https://github.com/TahirMustafa-NO-ONE/recipe-app",
-      live: "#",
-    },
-  },
-];
-
-const projectThumbnailMap: Record<string, string> = {
-  Meshlix: "/projectsthumbnails/meshlix.png",
-  "Smith CRM": "/projectsthumbnails/crm.png",
-  Libera: "/projectsthumbnails/comingsoon.png",
-  "The Hill Hotel": "/projectsthumbnails/the-hill-hotel.png",
-  "Pizza Max-Style Food Delivery": "/projectsthumbnails/pizzamax.png",
-  PlayOn: "/projectsthumbnails/playon.png",
-  Moreat: "/projectsthumbnails/moreat.png",
-};
+import {
+  sectionLabel,
+  heading,
+  description,
+  projects,
+  fallbackThumbnail,
+  labels,
+  ariaLabels,
+  type Project,
+} from "@/data/projects";
 
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const openProjectPreview = (project: (typeof projects)[number]) => {
+  const openProjectPreview = (project: Project) => {
     setSelectedProject(project);
   };
 
   const handleCardKeyDown = (
     event: KeyboardEvent<HTMLElement>,
-    project: (typeof projects)[number]
+    project: Project
   ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -216,7 +54,7 @@ const ProjectsSection = () => {
               transition={{ delay: 0.2 }}
               className="font-mono text-sm tracking-wider text-primary"
             >
-              03. PROJECTS
+              {sectionLabel}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -224,7 +62,8 @@ const ProjectsSection = () => {
               transition={{ delay: 0.3 }}
               className="mt-4 text-4xl font-bold md:text-5xl"
             >
-              Featured <span className="gradient-text">Work</span>
+              {heading.prefix}
+              <span className="gradient-text">{heading.highlight}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -232,8 +71,7 @@ const ProjectsSection = () => {
               transition={{ delay: 0.4 }}
               className="mx-auto mt-4 max-w-2xl text-muted-foreground"
             >
-              A selection of projects that showcase my skills in full-stack
-              development, cross-platform apps, and blockchain technology.
+              {description}
             </motion.p>
           </div>
 
@@ -249,7 +87,7 @@ const ProjectsSection = () => {
                 onKeyDown={(event) => handleCardKeyDown(event, project)}
                 role="button"
                 tabIndex={0}
-                aria-label={`Open preview for ${project.title}`}
+                aria-label={ariaLabels.cardPreview(project.title)}
               >
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_40%),radial-gradient(circle_at_bottom_right,hsl(var(--accent)/0.1),transparent_35%)] opacity-80" />
                 <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
@@ -258,11 +96,8 @@ const ProjectsSection = () => {
                   <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-background/40 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.9)]">
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
-                        src={
-                          projectThumbnailMap[project.title] ??
-                          "/projectsthumbnails/comingsoon.png"
-                        }
-                        alt={`${project.title} project preview`}
+                        src={project.thumbnail ?? fallbackThumbnail}
+                        alt={ariaLabels.thumbnailAlt(project.title)}
                         fill
                         className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                         sizes="(min-width: 1024px) 50vw, 100vw"
@@ -272,7 +107,7 @@ const ProjectsSection = () => {
 
                       <div className="absolute left-4 right-4 top-4 flex min-w-0 items-start justify-between gap-3">
                         <span className="max-w-full rounded-full border border-white/15 bg-background/80 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.24em] text-primary backdrop-blur-md">
-                          {project.featured ? "Featured" : "Selected"}
+                          {project.featured ? labels.featuredBadge : labels.selectedBadge}
                         </span>
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-background/70 text-primary shadow-[0_12px_28px_-16px_hsl(var(--primary)/0.8)] backdrop-blur-md">
                           <project.icon className="h-5 w-5" />
@@ -305,10 +140,10 @@ const ProjectsSection = () => {
                     <div className="space-y-5">
                       <div className="space-y-3">
                         <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground">
-                          <span>Portfolio Case Study</span>
+                          <span>{labels.caseStudy}</span>
                           {project.comingSoon && (
                             <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-primary">
-                              Launching Soon
+                              {labels.launchingSoon}
                             </span>
                           )}
                         </div>
@@ -320,7 +155,7 @@ const ProjectsSection = () => {
 
                       <div className="rounded-2xl border border-white/10 bg-background/35 p-4 sm:p-5">
                         <p className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
-                          Tech Stack
+                          {labels.techStack}
                         </p>
                         <div className="mt-3 flex flex-wrap gap-2">
                           {project.tech.map((tech) => (
@@ -346,11 +181,11 @@ const ProjectsSection = () => {
                           href={project.links.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`Open ${project.title} source code`}
+                          aria-label={ariaLabels.sourceCode(project.title)}
                           onClick={(event) => event.stopPropagation()}
                         >
                           <Github className="h-4 w-4" />
-                          Code
+                          {labels.codeButton}
                         </a>
                       </Button>
                       {project.comingSoon ? (
@@ -360,7 +195,7 @@ const ProjectsSection = () => {
                           disabled
                         >
                           <ExternalLink className="h-4 w-4" />
-                          Coming Soon
+                          {labels.comingSoonButton}
                         </Button>
                       ) : (
                         <Button
@@ -372,11 +207,11 @@ const ProjectsSection = () => {
                             href={project.links.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`Open live demo for ${project.title}`}
+                            aria-label={ariaLabels.liveDemo(project.title)}
                             onClick={(event) => event.stopPropagation()}
                           >
                             <ExternalLink className="h-4 w-4" />
-                            Live Demo
+                            {labels.liveDemoButton}
                           </a>
                         </Button>
                       )}
@@ -399,17 +234,16 @@ const ProjectsSection = () => {
       >
         <DialogContent className="max-w-[92vw] border-white/10 bg-background/95 p-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)] sm:max-w-4xl">
           <DialogTitle className="sr-only">
-            {selectedProject ? `${selectedProject.title} preview` : "Project preview"}
+            {selectedProject
+              ? ariaLabels.dialogTitle(selectedProject.title)
+              : labels.dialogFallbackTitle}
           </DialogTitle>
           {selectedProject && (
             <div className="overflow-hidden rounded-[1.25rem]">
               <div className="relative aspect-[16/10] w-full bg-background">
                 <Image
-                  src={
-                    projectThumbnailMap[selectedProject.title] ??
-                    "/projectsthumbnails/comingsoon.png"
-                  }
-                  alt={`${selectedProject.title} project preview`}
+                  src={selectedProject.thumbnail ?? fallbackThumbnail}
+                  alt={ariaLabels.thumbnailAlt(selectedProject.title)}
                   fill
                   className="object-cover object-top"
                   sizes="92vw"

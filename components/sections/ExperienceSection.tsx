@@ -2,40 +2,8 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { GraduationCap, Briefcase, Calendar } from "lucide-react";
-
-const timeline = [
-  {
-    type: "education",
-    title: "Bachelor of Science in Software Engineering",
-    organization: "COMSATS University Islamabad, Lahore Campus",
-    location: "Lahore, Punjab, Pakistan",
-    date: "Graduated June 2026",
-    description:
-      "Pursuing a comprehensive education in software engineering with focus on modern development practices, algorithms, and emerging technologies like blockchain and Web3.",
-    icon: GraduationCap,
-  },
-  {
-    type: "project",
-    title: "Libera - Decentralized Social Network",
-    organization: "Team Project",
-    location: "Remote",
-    date: "2025-2026",
-    description:
-      "Led development of blockchain-powered social platform using Hardhat, Solidity, and Next.js. Implemented privacy-preserving features and gasless transactions.",
-    icon: Briefcase,
-  },
-  {
-    type: "project",
-    title: "Full-Stack Development Projects",
-    organization: "Independent & Academic",
-    location: "Lahore, Pakistan",
-    date: "2023 - Present",
-    description:
-      "Built multiple full-stack applications including food delivery platform, recipe mobile app, and various web applications using React, Node.js, and Flutter.",
-    icon: Briefcase,
-  },
-];
+import { Calendar } from "lucide-react";
+import { sectionLabel, heading, timeline } from "@/data/experience";
 
 const ExperienceSection = () => {
   const ref = useRef(null);
@@ -58,7 +26,7 @@ const ExperienceSection = () => {
               transition={{ delay: 0.2 }}
               className="text-primary font-mono text-sm tracking-wider"
             >
-              05. EXPERIENCE & EDUCATION
+              {sectionLabel}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -66,7 +34,8 @@ const ExperienceSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-bold mt-4"
             >
-              My <span className="gradient-text">Journey</span>
+              {heading.prefix}
+              <span className="gradient-text">{heading.highlight}</span>
             </motion.h2>
           </div>
 

@@ -2,46 +2,24 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Mail, MapPin, Phone, Send, Github, Linkedin } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "tahirmustafa161123@gmail.com",
-    href: "mailto:tahirmustafa161123@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+92 319 429 1096",
-    href: "tel:+923194291096",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Lahore, Punjab, Pakistan",
-    href: "#",
-  },
-];
-
-const socialLinks = [
-  {
-    icon: Github,
-    label: "GitHub",
-    href: "https://github.com/TahirMustafa-NO-ONE",
-  },
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/tahir-mustafa-2b385b2b9",
-  },
-];
+import {
+  sectionLabel,
+  heading,
+  description,
+  contactInfo,
+  socialLinks,
+  socialPrompt,
+  emailConfig,
+  toastMessages,
+  formFields,
+  submitButton,
+} from "@/data/contact";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -56,7 +34,7 @@ const ContactSection = () => {
 
   // Initialize EmailJS
   useEffect(() => {
-    emailjs.init("y_FfAKnBYkrIr_t3v");
+    emailjs.init(emailConfig.publicKey);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,8 +43,8 @@ const ContactSection = () => {
     // Validate form
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast({
-        title: "Missing fields",
-        description: "Please fill in all fields before sending.",
+        title: toastMessages.missingFields.title,
+        description: toastMessages.missingFields.description,
         variant: "destructive",
       });
       return;
@@ -76,8 +54,8 @@ const ContactSection = () => {
 
     try {
       // EmailJS configuration
-      const serviceId = "service_portfolio_gmail";
-      const templateId = "template_portfolio_conta";
+      const serviceId = emailConfig.serviceId;
+      const templateId = emailConfig.templateId;
 
       // Send email using EmailJS
       const response = await emailjs.send(
@@ -93,8 +71,8 @@ const ContactSection = () => {
       console.log("Email sent successfully:", response);
 
       toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon!",
+        title: toastMessages.success.title,
+        description: toastMessages.success.description,
       });
 
       setFormData({ name: "", email: "", message: "" });
@@ -108,13 +86,13 @@ const ContactSection = () => {
       };
 
       // Log error to server (will print in terminal)
-      await fetch("/api/logs", {
+      await fetch(emailConfig.logEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           error: errorDetails,
           timestamp: new Date().toISOString(),
-          source: "ContactSection - EmailJS",
+          source: emailConfig.logSource,
         }),
       }).catch((fetchErr) => {
         console.error("Failed to send log to server:", fetchErr);
@@ -124,8 +102,8 @@ const ContactSection = () => {
       console.error("EmailJS Error Details:", errorDetails);
       
       toast({
-        title: "Failed to send message",
-        description: error?.text || "Something went wrong. Please try again or contact me directly.",
+        title: toastMessages.failure.title,
+        description: error?.text || toastMessages.failure.fallbackDescription,
         variant: "destructive",
       });
     } finally {
@@ -159,7 +137,7 @@ const ContactSection = () => {
               transition={{ delay: 0.2 }}
               className="text-primary font-mono text-sm tracking-wider"
             >
-              06. CONTACT
+              {sectionLabel}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -167,7 +145,8 @@ const ContactSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-bold mt-4"
             >
-              Let's <span className="gradient-text">Connect</span>
+              {heading.prefix}
+              <span className="gradient-text">{heading.highlight}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -175,8 +154,7 @@ const ContactSection = () => {
               transition={{ delay: 0.4 }}
               className="text-muted-foreground mt-4 max-w-2xl mx-auto"
             >
-              Have a project in mind or just want to say hello? I'd love to hear from you.
-              Let's build something amazing together!
+              {description}
             </motion.p>
           </div>
 
@@ -217,7 +195,7 @@ const ContactSection = () => {
                 className="pt-6"
               >
                 <p className="text-sm text-muted-foreground mb-4">
-                  Or find me on social media:
+                  {socialPrompt}
                 </p>
                 <div className="flex gap-4">
                   {socialLinks.map((link) => (
@@ -249,12 +227,12 @@ const ContactSection = () => {
               >
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">
-                    Your Name
+                    {formFields.name.label}
                   </label>
                   <Input
                     id="name"
                     name="name"
-                    placeholder="John Doe"
+                    placeholder={formFields.name.placeholder}
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -264,13 +242,13 @@ const ContactSection = () => {
 
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium">
-                    Your Email
+                    {formFields.email.label}
                   </label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder={formFields.email.placeholder}
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -280,12 +258,12 @@ const ContactSection = () => {
 
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
-                    Your Message
+                    {formFields.message.label}
                   </label>
                   <Textarea
                     id="message"
                     name="message"
-                    placeholder="Tell me about your project or just say hi..."
+                    placeholder={formFields.message.placeholder}
                     value={formData.message}
                     onChange={handleChange}
                     required
@@ -301,10 +279,10 @@ const ContactSection = () => {
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    "Sending..."
+                    submitButton.sendingLabel
                   ) : (
                     <>
-                      Send Message
+                      {submitButton.idleLabel}
                       <Send className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}

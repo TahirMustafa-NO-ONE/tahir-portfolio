@@ -2,31 +2,20 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Code2, Blocks, Smartphone, Rocket } from "lucide-react";
+import { Fragment, useRef } from "react";
+import {
+  sectionLabel,
+  heading,
+  aboutParagraphs,
+  highlights,
+  type TextSegmentVariant,
+} from "@/data/about";
 
-const highlights = [
-  {
-    icon: Code2,
-    title: "Full-Stack Development",
-    description: "Building end-to-end solutions with modern frameworks",
-  },
-  {
-    icon: Blocks,
-    title: "Web3 & Blockchain",
-    description: "Exploring decentralized technologies and smart contracts",
-  },
-  {
-    icon: Smartphone,
-    title: "Cross-Platform Apps",
-    description: "Crafting beautiful mobile experiences with Flutter",
-  },
-  {
-    icon: Rocket,
-    title: "Modern Tech Stack",
-    description: "Always learning and adopting cutting-edge tools",
-  },
-];
+const segmentVariantClass: Record<TextSegmentVariant, string> = {
+  foreground: "text-foreground font-medium",
+  primary: "text-primary",
+  accent: "text-accent font-medium",
+};
 
 const AboutSection = () => {
   const ref = useRef(null);
@@ -52,7 +41,7 @@ const AboutSection = () => {
               transition={{ delay: 0.2 }}
               className="text-primary font-mono text-sm tracking-wider"
             >
-              01. ABOUT ME
+              {sectionLabel}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -60,7 +49,8 @@ const AboutSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-bold mt-4"
             >
-              Who I <span className="gradient-text">Am</span>
+              {heading.prefix}
+              <span className="gradient-text">{heading.highlight}</span>
             </motion.h2>
           </div>
 
@@ -72,30 +62,25 @@ const AboutSection = () => {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="space-y-6"
             >
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a passionate{" "}
-                <span className="text-foreground font-medium">Full-Stack Developer</span>{" "}
-                with a Bachelor's degree in Software Engineering from{" "}
-                <span className="text-primary">COMSATS University Islamabad</span>,
-                Lahore Campus.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                With a strong foundation in the JavaScript/TypeScript ecosystem, I specialize
-                in building modern web applications using{" "}
-                <span className="text-foreground font-medium">React, Next.js, Node.js</span>,
-                and cross-platform mobile apps with{" "}
-                <span className="text-foreground font-medium">Flutter</span>.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                What excites me most is the intersection of traditional development and
-                emerging technologies. I'm deeply interested in{" "}
-                <span className="text-accent font-medium">Web3 and blockchain</span>,
-                working with Solidity, Hardhat, and decentralized application architecture.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                I believe in writing clean, maintainable code and creating experiences
-                that leave a lasting impression.
-              </p>
+              {aboutParagraphs.map((paragraph, pIndex) => (
+                <p
+                  key={pIndex}
+                  className="text-lg text-muted-foreground leading-relaxed"
+                >
+                  {paragraph.segments.map((segment, sIndex) =>
+                    segment.variant ? (
+                      <span
+                        key={sIndex}
+                        className={segmentVariantClass[segment.variant]}
+                      >
+                        {segment.text}
+                      </span>
+                    ) : (
+                      <Fragment key={sIndex}>{segment.text}</Fragment>
+                    )
+                  )}
+                </p>
+              ))}
             </motion.div>
 
             {/* Highlight Cards */}
