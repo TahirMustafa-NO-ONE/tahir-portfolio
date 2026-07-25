@@ -49,8 +49,8 @@ const CertificationCard = ({
           <div className="flex min-w-0 items-center gap-4">
             <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-background/55 p-3 shadow-[0_14px_32px_-20px_hsl(var(--primary)/0.75)]">
               <Image
-                src={certification.logo}
-                alt={`${certification.issuer} logo`}
+                src={certification.badge}
+                alt={`${certification.issuer} badge`}
                 width={40}
                 height={40}
                 className="h-9 w-9 object-contain"

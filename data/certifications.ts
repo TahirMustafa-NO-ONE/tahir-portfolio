@@ -6,7 +6,7 @@ export interface Certification {
   expirationDate?: string;
   credentialId?: string;
   credentialUrl?: string;
-  logo: string;
+  badge: string;
   skills: string[];
   description: string;
 }
@@ -20,7 +20,7 @@ export const certifications: Certification[] = [
     credentialId: "PWID-B0133500",
     credentialUrl:
       "https://www.credly.com/badges/a1b8456c-ae18-49ac-95a9-136bc4f898dc/public_url",
-    logo: "/certifications/AIF.png",
+    badge: "/certifications/AIF.png",
     skills: [
       "Artificial Intelligence",
       "AI Applications",
