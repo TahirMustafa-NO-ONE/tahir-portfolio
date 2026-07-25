@@ -339,7 +339,7 @@ const ProjectsSection = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-11 gap-2 rounded-full border-white/10 bg-background/40 px-5 hover:border-primary/30 hover:bg-primary/10"
+                        className="h-11 gap-2 rounded-full border-white/10 bg-background/40 px-5 text-foreground hover:border-primary/30 hover:bg-primary/10 hover:text-foreground"
                         asChild
                       >
                         <a
