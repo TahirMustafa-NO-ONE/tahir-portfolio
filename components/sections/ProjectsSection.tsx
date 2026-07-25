@@ -68,7 +68,7 @@ const projects = [
     title: "Libera",
     subtitle: "Decentralized Social Network Platform",
     description:
-      "A blockchain-powered social platform with privacy-preserving relayer services and a paymaster for gasless interactions. Built as a team project showcasing Web3 best practices.",
+      "A blockchain-powered social platform with privacy-preserving relayer services, a paymaster for gasless interactions and community driven moderation system. Built as a team project showcasing Web3 best practices.",
     tech: [
       "Solidity",
       "Hardhat",
