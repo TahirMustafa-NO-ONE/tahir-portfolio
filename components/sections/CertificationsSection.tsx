@@ -5,6 +5,7 @@ import { motion, useInView, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
 import { Award, BadgeCheck, Calendar, ChevronDown, ExternalLink, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { certifications, type Certification } from "@/data/certifications";
 
 const COLLAPSED_SKILLS_COUNT = 4;
@@ -26,12 +27,14 @@ interface CertificationCardProps {
   certification: Certification;
   index: number;
   isInView: boolean;
+  onBadgeClick: (certification: Certification) => void;
 }
 
 const CertificationCard = ({
   certification,
   index,
   isInView,
+  onBadgeClick,
 }: CertificationCardProps) => {
   const hasCredentialUrl = Boolean(certification.credentialUrl);
   const [expanded, setExpanded] = useState(false);
@@ -58,14 +61,21 @@ const CertificationCard = ({
       <div className="relative z-10 flex h-full min-w-0 flex-col gap-6">
         <div className="flex min-w-0 items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-4">
-            <Image
-              src={certification.badge}
-              alt={`${certification.issuer} badge`}
-              width={112}
-              height={112}
-              className="h-28 w-28 shrink-0 object-contain drop-shadow-[0_14px_32px_-12px_hsl(var(--primary)/0.75)]"
-              loading="lazy"
-            />
+            <button
+              type="button"
+              onClick={() => onBadgeClick(certification)}
+              className="group/badge h-28 w-28 shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              aria-label={`Open ${certification.title} badge image`}
+            >
+              <Image
+                src={certification.badge}
+                alt={`${certification.issuer} badge`}
+                width={112}
+                height={112}
+                className="h-28 w-28 object-contain drop-shadow-[0_14px_32px_-12px_hsl(var(--primary)/0.75)] transition-transform duration-300 group-hover/badge:scale-[1.03]"
+                loading="lazy"
+              />
+            </button>
 
             <div className="min-w-0 flex-1">
               <p className="break-words text-xs font-mono uppercase tracking-[0.22em] text-primary">
@@ -187,6 +197,8 @@ const CertificationCard = ({
 const CertificationsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedCertification, setSelectedCertification] =
+    useState<Certification | null>(null);
 
   return (
     <section id="certifications" className="relative overflow-x-clip py-32">
@@ -234,11 +246,43 @@ const CertificationsSection = () => {
                 certification={certification}
                 index={index}
                 isInView={isInView}
+                onBadgeClick={setSelectedCertification}
               />
             ))}
           </div>
         </motion.div>
       </div>
+
+      <Dialog
+        open={selectedCertification !== null}
+        onOpenChange={(open) => {
+          if (!open) {
+            setSelectedCertification(null);
+          }
+        }}
+      >
+        <DialogContent className="max-w-[92vw] border-white/10 bg-background/95 p-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)] sm:max-w-3xl">
+          <DialogTitle className="sr-only">
+            {selectedCertification
+              ? `${selectedCertification.title} badge preview`
+              : "Certification badge preview"}
+          </DialogTitle>
+          {selectedCertification && (
+            <div className="overflow-hidden rounded-[1.25rem] p-6 sm:p-8">
+              <div className="relative mx-auto aspect-square w-full max-w-xl">
+                <Image
+                  src={selectedCertification.badge}
+                  alt={`${selectedCertification.issuer} badge`}
+                  fill
+                  className="object-contain"
+                  sizes="92vw"
+                  priority
+                />
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
