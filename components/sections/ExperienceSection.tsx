@@ -58,7 +58,7 @@ const ExperienceSection = () => {
               transition={{ delay: 0.2 }}
               className="text-primary font-mono text-sm tracking-wider"
             >
-              04. EXPERIENCE & EDUCATION
+              05. EXPERIENCE & EDUCATION
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

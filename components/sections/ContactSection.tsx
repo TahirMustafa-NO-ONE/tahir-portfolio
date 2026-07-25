@@ -159,7 +159,7 @@ const ContactSection = () => {
               transition={{ delay: 0.2 }}
               className="text-primary font-mono text-sm tracking-wider"
             >
-              05. CONTACT
+              06. CONTACT
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

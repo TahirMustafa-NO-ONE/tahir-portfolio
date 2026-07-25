@@ -1,0 +1,13 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Azure mock logo</title>
+  <rect width="96" height="96" rx="24" fill="#0F172A"/>
+  <path d="M50.7 18L31.5 58.8H49.3L59.8 80L76 80.1L50.7 18Z" fill="#38BDF8"/>
+  <path d="M44.4 27.9L20 79.9H36.3L41.5 68.6L61.6 68.7L51.4 49.9L41.6 58.8H31.5L44.4 27.9Z" fill="#2563EB"/>
+  <path d="M50.7 18L76 80.1H59.8L49.3 58.8H31.5L50.7 18Z" fill="url(#paint0_linear)"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="39.5" y1="24" x2="67.5" y2="79" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -10,6 +10,7 @@ const navLinks = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
+  { name: "Certifications", href: "#certifications" },
   { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ];
@@ -69,7 +70,7 @@ const Navbar = () => {
         </motion.a>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-8">
           {navLinks.map((link, index) => (
             <motion.li
               key={link.name}
@@ -92,7 +93,7 @@ const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="hidden md:flex items-center gap-2"
+          className="hidden lg:flex items-center gap-2"
         >
             <ThemeToggle />
             <Button asChild variant="outline" className="glow-primary text-lg">
@@ -101,7 +102,7 @@ const Navbar = () => {
         </motion.div>
 
         {/* Mobile Menu Button */}
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <ThemeToggle />
           <Button
             variant="ghost"
@@ -125,7 +126,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/90 backdrop-blur-lg border-b border-border/50 shadow-xl"
+            className="lg:hidden bg-background/90 backdrop-blur-lg border-b border-border/50 shadow-xl"
           >
             <ul className="container py-6 flex flex-col gap-4">
               {navLinks.map((link, index) => (
