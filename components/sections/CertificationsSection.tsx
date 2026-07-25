@@ -63,15 +63,15 @@ const CertificationCard = ({
               alt={`${certification.issuer} badge`}
               width={112}
               height={112}
-              className="h-28 w-28 shrink-0 rounded-xl object-contain drop-shadow-[0_14px_32px_-12px_hsl(var(--primary)/0.75)]"
+              className="h-28 w-28 shrink-0 object-contain drop-shadow-[0_14px_32px_-12px_hsl(var(--primary)/0.75)]"
               loading="lazy"
             />
 
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="break-words text-xs font-mono uppercase tracking-[0.22em] text-primary">
                 {certification.issuer}
               </p>
-              <h3 className="mt-2 break-words text-xl font-bold leading-tight transition-colors duration-300 group-hover:text-primary">
+              <h3 className="mt-2 text-xl font-bold leading-tight transition-colors duration-300 group-hover:text-primary">
                 {certification.title}
               </h3>
             </div>
