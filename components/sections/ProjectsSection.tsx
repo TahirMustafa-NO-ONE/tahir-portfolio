@@ -73,6 +73,7 @@ const projects = [
       "Solidity",
       "Hardhat",
       "Next.js 15",
+      "Fastify.js",
       "React 19",
       "TypeScript",
       "Tailwind",
