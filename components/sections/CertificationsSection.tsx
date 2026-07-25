@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
-import { useRef } from "react";
-import { Award, BadgeCheck, Calendar, ExternalLink, ShieldCheck } from "lucide-react";
+import { useRef, useState } from "react";
+import { Award, BadgeCheck, Calendar, ChevronDown, ExternalLink, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { certifications, type Certification } from "@/data/certifications";
+
+const COLLAPSED_SKILLS_COUNT = 4;
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 36 },
@@ -32,6 +34,15 @@ const CertificationCard = ({
   isInView,
 }: CertificationCardProps) => {
   const hasCredentialUrl = Boolean(certification.credentialUrl);
+  const [expanded, setExpanded] = useState(false);
+
+  const hiddenSkillsCount = Math.max(
+    certification.skills.length - COLLAPSED_SKILLS_COUNT,
+    0
+  );
+  const visibleSkills = expanded
+    ? certification.skills
+    : certification.skills.slice(0, COLLAPSED_SKILLS_COUNT);
 
   return (
     <motion.article
@@ -39,7 +50,7 @@ const CertificationCard = ({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={cardVariants}
-      className="group relative min-w-0 overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm card-hover"
+      className="group relative flex h-full min-w-0 flex-col gap-6 overflow-hidden rounded-2xl p-6 card-hover"
     >
       <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-40" />
       <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
@@ -47,16 +58,14 @@ const CertificationCard = ({
       <div className="relative z-10 flex h-full min-w-0 flex-col gap-6">
         <div className="flex min-w-0 items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-4">
-            <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-background/55 p-3 shadow-[0_14px_32px_-20px_hsl(var(--primary)/0.75)]">
-              <Image
-                src={certification.badge}
-                alt={`${certification.issuer} badge`}
-                width={40}
-                height={40}
-                className="h-9 w-9 object-contain"
-                loading="lazy"
-              />
-            </div>
+            <Image
+              src={certification.badge}
+              alt={`${certification.issuer} badge`}
+              width={112}
+              height={112}
+              className="h-28 w-28 shrink-0 rounded-xl object-contain drop-shadow-[0_14px_32px_-12px_hsl(var(--primary)/0.75)]"
+              loading="lazy"
+            />
 
             <div className="min-w-0">
               <p className="break-words text-xs font-mono uppercase tracking-[0.22em] text-primary">
@@ -92,12 +101,16 @@ const CertificationCard = ({
           )}
         </div>
 
-        <p className="text-sm leading-7 text-muted-foreground">
+        <p
+          className={`text-sm leading-7 text-muted-foreground ${
+            expanded ? "" : "line-clamp-3"
+          }`}
+        >
           {certification.description}
         </p>
 
         <div className="flex flex-wrap gap-2">
-          {certification.skills.map((skill, skillIndex) => (
+          {visibleSkills.map((skill, skillIndex) => (
             <motion.span
               key={skill}
               initial={{ opacity: 0, scale: 0.88 }}
@@ -112,7 +125,30 @@ const CertificationCard = ({
               {skill}
             </motion.span>
           ))}
+          {!expanded && hiddenSkillsCount > 0 && (
+            <span className="skill-badge text-xs text-muted-foreground">
+              +{hiddenSkillsCount} more
+            </span>
+          )}
         </div>
+
+        {(certification.description.length > 140 ||
+          certification.skills.length > COLLAPSED_SKILLS_COUNT) && (
+          <button
+            type="button"
+            onClick={() => setExpanded((prev) => !prev)}
+            className="flex w-fit items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary transition-colors hover:text-primary/80"
+            aria-expanded={expanded}
+          >
+            {expanded ? "See less" : "See more"}
+            <ChevronDown
+              className={`h-3.5 w-3.5 transition-transform duration-300 ${
+                expanded ? "rotate-180" : ""
+              }`}
+              aria-hidden="true"
+            />
+          </button>
+        )}
 
         <div className="mt-auto border-t border-white/10 pt-5">
           {hasCredentialUrl ? (
@@ -191,7 +227,7 @@ const CertificationsSection = () => {
             </motion.p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
             {certifications.map((certification, index) => (
               <CertificationCard
                 key={certification.id}
