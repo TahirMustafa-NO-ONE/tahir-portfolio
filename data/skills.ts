@@ -53,6 +53,7 @@ export const skillCategories: SkillCategory[] = [
       "Next.js (v15)",
       "Node.js",
       "Express.js",
+      "Fastify.js",
       "Flutter",
       "Tailwind CSS",
       "Bootstrap",
