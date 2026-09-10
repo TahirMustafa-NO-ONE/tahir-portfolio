@@ -59,7 +59,7 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const avatar = {
-  src: "/profile-avatar4.png",
+  src: "/profile_avatar6.png",
   alt: "Tahir Mustafa",
   fullAlt: "Tahir Mustafa - Full Size",
   dialogTitle: "Profile Picture",
