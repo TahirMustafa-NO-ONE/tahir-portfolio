@@ -54,9 +54,9 @@ const NavPill = ({
   </motion.a>
 );
 
-const Logo = ({ className = "", textSize = "text-base" }) => (
+const Logo = ({ className = "", markSize = "h-5 w-5 text-lg", textSize = "text-base" }) => (
   <span className={`flex items-center gap-2 ${className}`}>
-    <span className={`flex items-center justify-center rounded-full bg-primary font-bold text-primary-foreground h-14 w-14 text-3xl`}>T</span>
+    <span className={`flex items-center justify-center rounded-full bg-primary font-bold text-primary-foreground h-12 w-12 text-2xl`}>T</span>
     {/* <span className={`font-extrabold tracking-tight ${textSize}`}>TM</span> */}
   </span>
 );
