@@ -119,9 +119,6 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-32 relative">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none" />
-
       <div className="container relative" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -146,7 +143,7 @@ const ContactSection = () => {
               className="text-4xl md:text-5xl font-bold mt-4"
             >
               {heading.prefix}
-              <span className="gradient-text">{heading.highlight}</span>
+              <span className="text-primary">{heading.highlight}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -174,9 +171,9 @@ const ContactSection = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ delay: 0.5 + index * 0.1 }}
-                    className="flex items-center gap-4 p-4 rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group"
+                    className="group flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-all duration-300 hover:-translate-y-px hover:border-primary/50 hover:bg-primary/5"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 transition-colors group-hover:bg-primary/20">
                       <item.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
@@ -204,7 +201,7 @@ const ContactSection = () => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-4 rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+                      className="rounded-md border border-border bg-card p-4 transition-all duration-300 hover:-translate-y-px hover:border-primary/50 hover:bg-primary/5"
                       whileHover={{ scale: 1.05, y: -4 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -223,7 +220,7 @@ const ContactSection = () => {
             >
               <form
                 onSubmit={handleSubmit}
-                className="p-8 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm space-y-6"
+                className="space-y-6 rounded-lg border border-border bg-card p-8"
               >
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">
@@ -236,7 +233,7 @@ const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    className="border-border bg-background focus:border-primary"
                   />
                 </div>
 
@@ -252,7 +249,7 @@ const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    className="border-border bg-background focus:border-primary"
                   />
                 </div>
 
@@ -268,14 +265,14 @@ const ContactSection = () => {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="bg-background/50 border-border/50 focus:border-primary resize-none"
+                    className="resize-none border-border bg-background focus:border-primary"
                   />
                 </div>
 
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full glow-primary group"
+                  className="group w-full shadow-sm"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

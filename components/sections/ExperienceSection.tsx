@@ -35,7 +35,7 @@ const ExperienceSection = () => {
               className="text-4xl md:text-5xl font-bold mt-4"
             >
               {heading.prefix}
-              <span className="gradient-text">{heading.highlight}</span>
+              <span className="text-primary">{heading.highlight}</span>
             </motion.h2>
           </div>
 
@@ -57,7 +57,7 @@ const ExperienceSection = () => {
                   }`}
                 >
                   {/* Timeline Dot */}
-                  <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-primary glow-primary -translate-x-1/2 z-10" />
+                  <div className="absolute left-8 z-10 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-background bg-primary md:left-1/2" />
 
                   {/* Content Card */}
                   <div
@@ -65,12 +65,12 @@ const ExperienceSection = () => {
                       index % 2 === 0 ? "md:mr-auto md:text-right" : "md:ml-auto"
                     }`}
                   >
-                    <div className="p-6 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm card-hover">
+                    <div className="rounded-lg border border-border bg-card p-6 card-hover">
                       <div className={`flex items-center gap-3 mb-3 ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}>
                         <div
                           className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                             item.type === "education"
-                              ? "bg-accent/10 text-accent"
+                              ? "bg-secondary text-primary"
                               : "bg-primary/10 text-primary"
                           }`}
                         >

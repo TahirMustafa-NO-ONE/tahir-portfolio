@@ -14,7 +14,7 @@ import {
 const segmentVariantClass: Record<TextSegmentVariant, string> = {
   foreground: "text-foreground font-medium",
   primary: "text-primary",
-  accent: "text-accent font-medium",
+  accent: "text-primary font-medium",
 };
 
 const AboutSection = () => {
@@ -23,9 +23,6 @@ const AboutSection = () => {
 
   return (
     <section id="about" className="py-32 relative">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
-
       <div className="container relative" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -50,7 +47,7 @@ const AboutSection = () => {
               className="text-4xl md:text-5xl font-bold mt-4"
             >
               {heading.prefix}
-              <span className="gradient-text">{heading.highlight}</span>
+              <span className="text-primary">{heading.highlight}</span>
             </motion.h2>
           </div>
 
@@ -96,9 +93,9 @@ const AboutSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.6 + index * 0.1 }}
-                  className="p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm card-hover group"
+                  className="group rounded-lg border border-border bg-card p-6 card-hover"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 transition-colors group-hover:bg-primary/20">
                     <item.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="font-semibold mb-2">{item.title}</h3>

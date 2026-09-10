@@ -39,7 +39,7 @@ const SkillsSection = () => {
               className="text-4xl md:text-5xl font-bold mt-4"
             >
               {heading.prefix}
-              <span className="gradient-text">{heading.highlight}</span>
+              <span className="text-primary">{heading.highlight}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -61,21 +61,13 @@ const SkillsSection = () => {
                 transition={{ delay: 0.4 + categoryIndex * 0.1, duration: 0.5 }}
                 className="group relative min-w-0"
               >
-                <div className="h-full p-6 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm card-hover overflow-hidden">
-                  {/* Background Glow */}
-                  <div
-                    className={`absolute -top-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${
-                      category.color === "primary" ? "bg-primary" : "bg-accent"
-                    }`}
-                  />
+                <div className="h-full overflow-hidden rounded-lg border border-border bg-card p-6 card-hover">
 
                   {/* Header */}
                   <div className="relative z-10 mb-6 flex min-w-0 items-center gap-3">
                     <div
                       className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                        category.color === "primary"
-                          ? "bg-primary/10 text-primary"
-                          : "bg-accent/10 text-accent"
+                        "bg-primary/10 text-primary"
                       }`}
                     >
                       <category.icon className="w-5 h-5" />

@@ -114,7 +114,7 @@ const LogoLoop: React.FC<LogoLoopProps> = ({
         {logo.node ? (
           <div 
             className={`${iconSizeClass} transition-all duration-300`}
-            style={{ color: '#999999' }}
+            style={{ color: 'hsl(var(--muted-foreground))' }}
           >
             {logo.node}
           </div>
@@ -162,15 +162,10 @@ const LogoLoop: React.FC<LogoLoopProps> = ({
     >
       <style>
         {`
-          .logo-item:hover > div {
-            color: var(--hover-color) !important;
-          }
+          .logo-item:hover > div { color: hsl(var(--primary)) !important; }
           .logo-item:hover img {
             filter: grayscale(0%) brightness(1) !important;
           }
-          ${logos.map((logo) => 
-            logo.color ? `.logo-item[data-hover-color="${logo.color}"]:hover > div { color: ${logo.color} !important; }` : ''
-          ).join('\n')}
         `}
       </style>
       <div className="logo-track flex items-center absolute left-0 top-0">

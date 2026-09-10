@@ -56,7 +56,7 @@ const TechStackSection = () => {
   ];
 
   return (
-    <section className="pt-20 bg-background/50 backdrop-blur-sm w-full">
+    <section className="w-full border-y border-border bg-secondary/20 pt-20">
       <div 
         className="relative w-full" 
         style={{ height: isMobile ? '80px' : '140px' }}

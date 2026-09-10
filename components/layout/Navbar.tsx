@@ -55,14 +55,14 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
         scrolled 
-          ? "bg-background/80 backdrop-blur-md shadow-lg border-b border-border/50 py-4" 
+          ? "bg-background/95 border-b border-border py-4"
           : "bg-transparent py-6"
       }`}
     >
       <nav className="container flex items-center justify-between">
         <motion.a
           href="#"
-          className="text-4xl font-extrabold font-sans gradient-text"
+          className="text-4xl font-extrabold font-sans text-primary"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -96,7 +96,7 @@ const Navbar = () => {
           className="hidden lg:flex items-center gap-2"
         >
             <ThemeToggle />
-            <Button asChild variant="outline" className="glow-primary text-lg">
+            <Button asChild variant="outline" className="border-primary/50 text-lg hover:bg-primary hover:text-primary-foreground">
             <a href="#contact">Let's Talk</a>
             </Button>
         </motion.div>
@@ -126,7 +126,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background/90 backdrop-blur-lg border-b border-border/50 shadow-xl"
+            className="border-b border-border bg-background lg:hidden"
           >
             <ul className="container py-6 flex flex-col gap-4">
               {navLinks.map((link, index) => (

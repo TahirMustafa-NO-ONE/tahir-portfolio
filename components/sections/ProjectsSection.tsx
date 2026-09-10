@@ -38,8 +38,6 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="relative overflow-x-clip py-32">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
-
       <div className="container relative" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -63,7 +61,7 @@ const ProjectsSection = () => {
               className="mt-4 text-4xl font-bold md:text-5xl"
             >
               {heading.prefix}
-              <span className="gradient-text">{heading.highlight}</span>
+              <span className="text-primary">{heading.highlight}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -82,18 +80,15 @@ const ProjectsSection = () => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.15, duration: 0.6 }}
-                className="group relative min-w-0 cursor-pointer overflow-hidden rounded-[2rem] border border-border/50 bg-card/30 backdrop-blur-sm card-hover"
+                className="group relative min-w-0 cursor-pointer overflow-hidden rounded-lg border border-border bg-card card-hover"
                 onClick={() => openProjectPreview(project)}
                 onKeyDown={(event) => handleCardKeyDown(event, project)}
                 role="button"
                 tabIndex={0}
                 aria-label={ariaLabels.cardPreview(project.title)}
               >
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_40%),radial-gradient(circle_at_bottom_right,hsl(var(--accent)/0.1),transparent_35%)] opacity-80" />
-                <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
                 <div className="relative z-10 grid gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-8 lg:p-7">
-                  <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-background/40 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.9)]">
+                  <div className="relative overflow-hidden rounded-md border border-border bg-background">
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
                         src={project.thumbnail ?? fallbackThumbnail}
@@ -102,20 +97,19 @@ const ProjectsSection = () => {
                         className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                         sizes="(min-width: 1024px) 50vw, 100vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent sm:from-background/95 sm:via-background/20" />
-                      <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent sm:from-background/95" />
 
                       <div className="absolute left-4 right-4 top-4 flex min-w-0 items-start justify-between gap-3">
-                        <span className="max-w-full rounded-full border border-white/15 bg-background/80 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.24em] text-primary backdrop-blur-md">
+                        <span className="max-w-full rounded-md border border-border bg-background px-3 py-1 text-[11px] font-mono uppercase tracking-[0.24em] text-primary">
                           {project.featured ? labels.featuredBadge : labels.selectedBadge}
                         </span>
-                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-background/70 text-primary shadow-[0_12px_28px_-16px_hsl(var(--primary)/0.8)] backdrop-blur-md">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-md border border-border bg-background text-primary">
                           <project.icon className="h-5 w-5" />
                         </div>
                       </div>
 
                       <div className="absolute inset-x-4 bottom-4 hidden sm:block">
-                        <div className="rounded-2xl border border-white/10 bg-background/72 p-4 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl">
+                        <div className="rounded-md border border-border bg-background p-4">
                           <p className="text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
                             {project.subtitle}
                           </p>
@@ -126,7 +120,7 @@ const ProjectsSection = () => {
                       </div>
                     </div>
 
-                    <div className="border-t border-white/10 bg-background/70 p-4 sm:hidden">
+                    <div className="border-t border-border bg-background p-4 sm:hidden">
                       <p className="break-words text-[11px] font-mono uppercase tracking-[0.26em] text-primary/90">
                         {project.subtitle}
                       </p>
@@ -153,7 +147,7 @@ const ProjectsSection = () => {
                         </p>
                       </div>
 
-                      <div className="rounded-2xl border border-white/10 bg-background/35 p-4 sm:p-5">
+                      <div className="rounded-md border border-border bg-secondary/25 p-4 sm:p-5">
                         <p className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
                           {labels.techStack}
                         </p>
@@ -170,11 +164,11 @@ const ProjectsSection = () => {
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-3 border-t border-white/10 pt-1 sm:pt-3">
+                    <div className="flex flex-wrap gap-3 border-t border-border pt-1 sm:pt-3">
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-11 gap-2 rounded-full border-white/10 bg-background/40 px-5 text-foreground hover:border-primary/30 hover:bg-primary/10 hover:text-foreground"
+                        className="h-11 gap-2 rounded-md border-border bg-background px-5 text-foreground hover:border-primary/50 hover:bg-primary/5 hover:text-foreground"
                         asChild
                       >
                         <a
@@ -191,7 +185,7 @@ const ProjectsSection = () => {
                       {project.comingSoon ? (
                         <Button
                           size="sm"
-                          className="h-11 gap-2 rounded-full px-5"
+                          className="h-11 gap-2 rounded-md px-5"
                           disabled
                         >
                           <ExternalLink className="h-4 w-4" />
@@ -200,7 +194,7 @@ const ProjectsSection = () => {
                       ) : (
                         <Button
                           size="sm"
-                          className="h-11 gap-2 rounded-full px-5 glow-primary"
+                          className="h-11 gap-2 rounded-md px-5 shadow-sm"
                           asChild
                         >
                           <a
@@ -232,14 +226,14 @@ const ProjectsSection = () => {
           }
         }}
       >
-        <DialogContent className="max-w-[92vw] border-white/10 bg-background/95 p-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)] sm:max-w-4xl">
+        <DialogContent className="max-w-[92vw] border-border bg-background p-0 shadow-lg sm:max-w-4xl">
           <DialogTitle className="sr-only">
             {selectedProject
               ? ariaLabels.dialogTitle(selectedProject.title)
               : labels.dialogFallbackTitle}
           </DialogTitle>
           {selectedProject && (
-            <div className="overflow-hidden rounded-[1.25rem]">
+            <div className="overflow-hidden rounded-md">
               <div className="relative aspect-[16/10] w-full bg-background">
                 <Image
                   src={selectedProject.thumbnail ?? fallbackThumbnail}

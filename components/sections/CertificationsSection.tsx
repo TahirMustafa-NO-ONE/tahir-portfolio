@@ -53,11 +53,8 @@ const CertificationCard = ({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={cardVariants}
-      className="group relative flex h-full min-w-0 flex-col gap-6 overflow-hidden rounded-2xl p-6 card-hover"
+      className="group relative flex h-full min-w-0 flex-col gap-6 overflow-hidden rounded-lg border border-border bg-card p-6 card-hover"
     >
-      <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-40" />
-      <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-
       <div className="relative z-10 flex h-full min-w-0 flex-col gap-6">
         <div className="flex min-w-0 items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-4">
@@ -72,7 +69,7 @@ const CertificationCard = ({
                 alt={`${certification.issuer} badge`}
                 width={112}
                 height={112}
-                className="h-28 w-28 object-contain drop-shadow-[0_14px_32px_-12px_hsl(var(--primary)/0.75)] transition-transform duration-300 group-hover/badge:scale-[1.03]"
+                className="h-28 w-28 object-contain transition-transform duration-300 group-hover/badge:scale-[1.03]"
                 loading="lazy"
               />
             </button>
@@ -92,7 +89,7 @@ const CertificationCard = ({
           </div>
         </div>
 
-        <div className="grid gap-3 rounded-2xl border border-white/10 bg-background/35 p-4 text-sm text-muted-foreground">
+        <div className="grid gap-3 rounded-md border border-border bg-secondary/25 p-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-primary" aria-hidden="true" />
             <span>
@@ -103,7 +100,7 @@ const CertificationCard = ({
 
           {certification.credentialId && (
             <div className="flex min-w-0 items-center gap-2">
-              <ShieldCheck className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+              <ShieldCheck className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
               <span className="min-w-0 break-words font-mono text-xs">
                 Credential ID: {certification.credentialId}
               </span>
@@ -160,12 +157,12 @@ const CertificationCard = ({
           </button>
         )}
 
-        <div className="mt-auto border-t border-white/10 pt-5">
+        <div className="mt-auto border-t border-border pt-5">
           {hasCredentialUrl ? (
             <Button
               asChild
               size="sm"
-              className="h-11 w-full gap-2 rounded-full px-5 glow-primary sm:w-auto"
+              className="h-11 w-full gap-2 rounded-md px-5 shadow-sm sm:w-auto"
             >
               <a
                 href={certification.credentialUrl}
@@ -180,7 +177,7 @@ const CertificationCard = ({
           ) : (
             <Button
               size="sm"
-              className="h-11 w-full gap-2 rounded-full px-5 sm:w-auto"
+              className="h-11 w-full gap-2 rounded-md px-5 sm:w-auto"
               disabled
               aria-label={`Credential verification is unavailable for ${certification.title}`}
             >
@@ -202,8 +199,6 @@ const CertificationsSection = () => {
 
   return (
     <section id="certifications" className="relative overflow-x-clip py-32">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-
       <div className="container relative" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -226,7 +221,7 @@ const CertificationsSection = () => {
               transition={{ delay: 0.3 }}
               className="mt-4 text-4xl font-bold md:text-5xl"
             >
-              Verified <span className="gradient-text">Credentials</span>
+              Verified <span className="text-primary">Credentials</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -261,14 +256,14 @@ const CertificationsSection = () => {
           }
         }}
       >
-        <DialogContent className="max-w-[92vw] border-white/10 bg-background/95 p-0 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)] sm:max-w-3xl">
+        <DialogContent className="max-w-[92vw] border-border bg-background p-0 shadow-lg sm:max-w-3xl">
           <DialogTitle className="sr-only">
             {selectedCertification
               ? `${selectedCertification.title} badge preview`
               : "Certification badge preview"}
           </DialogTitle>
           {selectedCertification && (
-            <div className="overflow-hidden rounded-[1.25rem] p-6 sm:p-8">
+            <div className="overflow-hidden rounded-md p-6 sm:p-8">
               <div className="relative mx-auto aspect-square w-full max-w-xl">
                 <Image
                   src={selectedCertification.badge}
