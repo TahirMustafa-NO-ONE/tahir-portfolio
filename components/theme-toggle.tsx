@@ -16,7 +16,7 @@ export function ThemeToggle() {
     return (
       <Button
         variant="ghost"
-        size="icon"
+        className="h-14 w-14 rounded-full"
         aria-label="Toggle theme"
         title="Toggle theme"
       />
@@ -28,13 +28,20 @@ export function ThemeToggle() {
   return (
     <Button
       variant="ghost"
-      size="icon"
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      className="h-14 w-14 rounded-full"
+      aria-label={
+        isDark ? "Switch to light theme" : "Switch to dark theme"
+      }
       title={isDark ? "Switch to light theme" : "Switch to dark theme"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
-      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <Sun
+        className="!h-7 !w-7 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+      />
+
+      <Moon
+        className="absolute !h-7 !w-7 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+      />
     </Button>
   );
 }
