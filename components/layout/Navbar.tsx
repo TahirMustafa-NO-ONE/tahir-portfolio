@@ -37,11 +37,10 @@ const NavPill = ({
     href={link.href}
     onClick={(e) => onNavClick(e, link.href)}
     whileHover={{ y: -1 }}
-    className={`relative whitespace-nowrap rounded-full px-10 py-3 text-base font-medium transition-colors duration-300 ${
-      isActive
-        ? "text-primary-foreground"
-        : "text-background/70 hover:bg-background/10 hover:text-background"
-    }`}
+    className={`relative whitespace-nowrap rounded-full px-10 py-3 text-base font-medium transition-colors duration-300 ${isActive
+      ? "text-primary-foreground"
+      : "text-background/70 hover:bg-background/10 hover:text-background"
+      }`}
   >
     {isActive && (
       <motion.span
@@ -120,39 +119,101 @@ const Navbar = () => {
       className="fixed inset-x-0 top-0 z-50 py-6"
     >
       {/* Desktop: one floating pill, exactly like the reference */}
+      {/* Desktop */}
+      {/* Desktop */}
+      <div className="relative">
       <nav className="container relative hidden items-center justify-center lg:flex">
         <LayoutGroup id="desktop-navigation">
-        <div
-          className={`flex min-h-[76px] items-center gap-1.5 rounded-full bg-foreground px-3 py-3 text-background transition-shadow ${
-            scrolled ? "shadow-lg shadow-black/10" : "shadow-md shadow-black/5"
-          }`}
-        >
-          <ul className="flex items-center gap-1">
-            {leftLinks.map((link) => (
-              <li key={link.name}>
-                <NavPill link={link} isActive={activeHref === link.href} onNavClick={handleNavClick} indicatorId="desktop-active-link" />
-              </li>
-            ))}
-          </ul>
+          <div
+            className={`grid min-h-[76px] grid-cols-7 items-center rounded-full bg-foreground px-3 py-3 text-background transition-shadow ${scrolled
+                ? "shadow-lg shadow-black/10"
+                : "shadow-md shadow-black/5"
+              }`}
+          >
+            {/* About */}
+            <div className="flex justify-center">
+              <NavPill
+                link={leftLinks[0]}
+                isActive={activeHref === leftLinks[0].href}
+                onNavClick={handleNavClick}
+                indicatorId="desktop-active-link"
+              />
+            </div>
 
-          <a href="#" onClick={handleLogoClick} className="mx-3 px-3" aria-label="Back to top">
-            <Logo markSize="h-9 w-9 text-sm" textSize="text-lg" />
-          </a>
+            {/* Skills */}
+            <div className="flex justify-center">
+              <NavPill
+                link={leftLinks[1]}
+                isActive={activeHref === leftLinks[1].href}
+                onNavClick={handleNavClick}
+                indicatorId="desktop-active-link"
+              />
+            </div>
 
-          <ul className="flex items-center gap-1">
-            {rightLinks.map((link) => (
-              <li key={link.name}>
-                <NavPill link={link} isActive={activeHref === link.href} onNavClick={handleNavClick} indicatorId="desktop-active-link" />
-              </li>
-            ))}
-          </ul>
-        </div>
+            {/* Projects */}
+            <div className="flex justify-center">
+              <NavPill
+                link={leftLinks[2]}
+                isActive={activeHref === leftLinks[2].href}
+                onNavClick={handleNavClick}
+                indicatorId="desktop-active-link"
+              />
+            </div>
+
+            {/* Center Logo */}
+            <div className="flex items-center justify-center">
+              <a
+                href="#"
+                onClick={handleLogoClick}
+                aria-label="Back to top"
+                className="flex items-center justify-center"
+              >
+                <Logo
+                  markSize="h-12 w-12 text-2xl"
+                  textSize="text-lg"
+                />
+              </a>
+            </div>
+
+            {/* Certifications */}
+            <div className="flex justify-center">
+              <NavPill
+                link={rightLinks[0]}
+                isActive={activeHref === rightLinks[0].href}
+                onNavClick={handleNavClick}
+                indicatorId="desktop-active-link"
+              />
+            </div>
+
+            {/* Experience */}
+            <div className="flex justify-center">
+              <NavPill
+                link={rightLinks[1]}
+                isActive={activeHref === rightLinks[1].href}
+                onNavClick={handleNavClick}
+                indicatorId="desktop-active-link"
+              />
+            </div>
+
+            {/* Contact */}
+            <div className="flex justify-center">
+              <NavPill
+                link={rightLinks[2]}
+                isActive={activeHref === rightLinks[2].href}
+                onNavClick={handleNavClick}
+                indicatorId="desktop-active-link"
+              />
+            </div>
+          </div>
         </LayoutGroup>
 
+        
+      </nav>
+      {/* Theme Toggle */}
         <div className="absolute right-4 top-1/2 -translate-y-1/2">
           <ThemeToggle />
         </div>
-      </nav>
+      </div>
 
       {/* Mobile: compact bar with the same black-on-light / white-on-dark pill treatment */}
       <nav className="container flex items-center justify-between lg:hidden">
@@ -194,7 +255,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
                 >
-                <NavPill link={link} isActive={activeHref === link.href} onNavClick={handleNavClick} indicatorId="mobile-active-link" />
+                  <NavPill link={link} isActive={activeHref === link.href} onNavClick={handleNavClick} indicatorId="mobile-active-link" />
                 </motion.li>
               ))}
             </ul>
