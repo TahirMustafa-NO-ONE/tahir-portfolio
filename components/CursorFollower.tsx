@@ -99,7 +99,7 @@ export default function CursorFollower() {
     <div
       ref={followerRef}
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-10 h-7 w-7 rounded-full border border-white/10"
+      className="pointer-events-none fixed left-0 top-0 z-[60] h-7 w-7 rounded-full border border-white/10"
     />
   );
 }

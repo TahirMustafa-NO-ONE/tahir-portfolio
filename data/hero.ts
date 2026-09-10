@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, type LucideIcon } from "lucide-react";
 
-export const greeting = "<Hello World />";
+//export const greeting = "<Hello World />";
+export const greeting = "Hello";
 
 export const name = {
   prefix: "I'm ",

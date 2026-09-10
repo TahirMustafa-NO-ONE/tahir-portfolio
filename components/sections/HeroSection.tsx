@@ -7,81 +7,77 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import TypewriterText from "@/components/ui/TypewriterText";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { greeting, name, roles, description, ctaButtons, socialLinks, avatar, scrollIndicatorLabel } from "@/data/hero";
-
-const framePaths = [
-  "M 42 78 L 42 42 L 78 42",
-  "M 222 42 L 258 42 L 258 78",
-  "M 258 222 L 258 258 L 222 258",
-  "M 78 258 L 42 258 L 42 222",
-];
+import { greeting, name, roles, description, ctaButtons, avatar, scrollIndicatorLabel } from "@/data/hero";
 
 const HeroSection = () => {
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      <div className="container relative px-4">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-12 lg:flex-row lg:gap-20">
-          <motion.div
-            initial={{ opacity: 0, x: -32 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.15 }}
-            className="order-2 mt-0 flex max-w-2xl flex-1 flex-col justify-center text-center lg:order-1 lg:mt-20 lg:text-left"
-          >
-            <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.25 }} className="mb-6 mt-10 font-mono text-sm tracking-wider text-muted-foreground">
-              {greeting}
-            </motion.p>
-            <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.35 }} className="mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl xl:text-7xl">
-              <span>{name.prefix}</span><span className="text-primary">{name.highlight}</span>
-            </motion.h1>
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.42 }} className="mb-5 h-12 text-xl text-muted-foreground md:text-2xl lg:text-3xl">
-              <TypewriterText texts={roles} speed={80} deleteSpeed={40} pauseDuration={2500} className="font-medium" />
-            </motion.div>
-            <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.52 }} className="mb-12 text-base leading-relaxed text-muted-foreground lg:text-lg">
-              {description}
-            </motion.p>
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.62 }} className="mb-12 flex flex-wrap justify-center gap-4 lg:justify-start">
-              <Button size="lg" className="group shadow-sm transition-all hover:-translate-y-px hover:shadow-md" asChild>
-                <a href={ctaButtons.primary.href}>{ctaButtons.primary.label}<span className="ml-2 transition-transform group-hover:translate-x-1">{ctaButtons.primary.arrow}</span></a>
+    // h-screen + overflow-hidden pins the whole hero to exactly one viewport.
+    // If your Navbar is NOT fixed/overlaying, swap h-screen for
+    // h-[calc(100vh-<navbar height>)] so this math still works.
+    <section className="relative isolate flex h-screen max-h-screen flex-col overflow-hidden pt-24 sm:pt-28">
+      <div className="container relative flex min-h-0 flex-1 flex-col px-4 pb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}
+          className="mx-auto flex w-fit shrink-0 items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-[11px] tracking-wide text-muted-foreground"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />{greeting}
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.12 }} className="relative z-10 mx-auto mt-3 max-w-4xl shrink-0 text-center sm:mt-4">
+          <h1 className="text-3xl font-bold leading-[0.98] tracking-[-0.05em] text-foreground sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+            <span>{name.prefix}</span><span className="text-primary">{name.highlight},</span>
+            <span className="mt-1 block text-foreground sm:mt-1.5">Software Engineer</span>
+          </h1>
+        </motion.div>
+
+        {/* Middle area is flex-1/min-h-0 so it soaks up whatever room is left
+            under the heading, and the circle (h-full + aspect-square) scales
+            itself down to fit — no matter the screen height, nothing overflows. */}
+        <div className="relative mx-auto mt-2 flex w-full max-w-5xl flex-1 min-h-0 items-center justify-center sm:mt-4">
+          {/* <motion.p initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.45 }} className="absolute left-0 top-1/5 hidden w-40 -translate-y-1/2 text-left text-xs leading-relaxed text-muted-foreground lg:block">
+            {description}
+          </motion.p> */}
+
+          {/* <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.5 }} className="absolute right-2 top-1/2 hidden -translate-y-1/2 text-right lg:block">
+            <div className="mb-2 flex justify-end gap-0.5 text-primary" aria-label="Five stars">★★★★★</div>
+            <p className="text-2xl font-bold leading-none tracking-tight">10 Years</p>
+            <p className="mt-1 text-xs font-medium text-muted-foreground">Experience</p>
+          </motion.div> */}
+
+          <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.25 }} className="relative aspect-square h-full max-h-[440px] w-auto">
+            {/* Full circle sits behind the photo; the photo only covers the
+                top arch, leaving the lower crescent free for the buttons. */}
+            <div className="absolute inset-0 rounded-full bg-primary/65" />
+            <span className="absolute left-2 top-[26%] h-px w-7 -rotate-[28deg] bg-primary sm:-left-7 sm:w-10" />
+            <span className="absolute left-8 top-[18%] h-px w-5 rotate-[42deg] bg-primary sm:-left-1" />
+            <span className="absolute right-6 top-[14%] h-px w-6 rotate-[62deg] bg-primary sm:right-0" />
+            <button type="button" onClick={() => setIsAvatarOpen(true)} aria-label="Open profile photo" className="group absolute inset-x-[10%] top-0 block h-[78%] cursor-zoom-in overflow-hidden rounded-t-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background">
+              <Image src={avatar.src} alt={avatar.alt} fill priority sizes="(min-width: 1024px) 440px, 300px" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]" />
+            </button>
+
+            {/* Two-button pill row overlapping the exposed base of the circle */}
+            <div className="absolute inset-x-0 bottom-[8%] flex items-center justify-center gap-2">
+              <Button size="sm" className="rounded-full px-5 shadow-sm" asChild>
+                <a href={ctaButtons.primary.href}>{ctaButtons.primary.label} ↗</a>
               </Button>
-              <Button size="lg" variant="outline" className="hover:border-primary/50" asChild>
+              <Button size="sm" variant="outline" className="rounded-full border-none bg-background/85 px-5 text-foreground backdrop-blur-sm hover:bg-background" asChild>
                 <a href={ctaButtons.secondary.href} download={ctaButtons.secondary.download}>{ctaButtons.secondary.label}</a>
               </Button>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.72 }} className="flex justify-center gap-3 pb-10 lg:justify-start">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="rounded-md border border-border p-3 text-muted-foreground transition-all hover:-translate-y-px hover:border-primary/50 hover:text-primary">
-                  <Icon className="h-5 w-5" />
-                </a>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, x: 32 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.15 }} className="order-1 flex flex-1 items-center justify-center pt-20 lg:order-2 lg:pt-0">
-            <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.25 }} className="relative">
-              <button type="button" onClick={() => setIsAvatarOpen(true)} aria-label="Open profile photo" className="group relative block cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background">
-                <div className="relative h-[280px] w-[280px] overflow-hidden rounded-full border border-border bg-card shadow-[0_20px_40px_rgba(0,0,0,0.12)] sm:h-[328px] sm:w-[328px] lg:h-[376px] lg:w-[376px] xl:h-[424px] xl:w-[424px]">
-                  <Image src={avatar.src} alt={avatar.alt} fill priority className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
-                </div>
-                <svg viewBox="0 0 300 300" className="pointer-events-none absolute -inset-5 h-[calc(100%+2.5rem)] w-[calc(100%+2.5rem)] overflow-visible" aria-hidden="true">
-                  {framePaths.map((d, index) => (
-                    <motion.path key={d} d={d} fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.55, delay: 0.35 + index * 0.1, ease: "easeOut" }} />
-                  ))}
-                </svg>
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-xs tracking-wide text-muted-foreground">// tahir.dev</span>
-              </button>
-            </motion.div>
-            <Dialog open={isAvatarOpen} onOpenChange={setIsAvatarOpen}>
-              <DialogContent className="max-w-xs border-border bg-background p-0 shadow-lg lg:max-w-2xl">
-                <DialogTitle className="sr-only">{avatar.dialogTitle}</DialogTitle>
-                <div className="relative aspect-square w-full"><Image src={avatar.src} alt={avatar.fullAlt} fill className="rounded-md object-cover" /></div>
-              </DialogContent>
-            </Dialog>
+            </div>
           </motion.div>
         </div>
       </div>
-      <motion.a initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.5 }} href="#about" className="absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-primary lg:flex">
-        <span className="font-mono text-xs tracking-wider">{scrollIndicatorLabel}</span><ArrowDown className="h-4 w-4" />
-      </motion.a>
+
+      <Dialog open={isAvatarOpen} onOpenChange={setIsAvatarOpen}>
+        <DialogContent className="max-w-xs border-border bg-background p-0 shadow-lg lg:max-w-2xl">
+          <DialogTitle className="sr-only">{avatar.dialogTitle}</DialogTitle>
+          <div className="relative aspect-square w-full"><Image src={avatar.src} alt={avatar.fullAlt} fill className="rounded-md object-cover" /></div>
+        </DialogContent>
+      </Dialog>
+
+      <a href="#about" className="absolute bottom-6 left-8 hidden items-center gap-2 font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-primary xl:flex"><span>{scrollIndicatorLabel}</span><ArrowDown className="h-4 w-4" /></a>
     </section>
   );
 };
